@@ -25,6 +25,8 @@ Open `http://127.0.0.1:4321`. Pages and content reload as you edit.
 
 The case-study route, work index, category filter, and search entry are automatic. `featured: true` includes a project in the home-page selection; the home page shows the first three featured projects by `order`. `visual: generic` provides a ready-to-use exhibit, so new work does not require new illustration code.
 
+Add screenshots to `public/images/` and reference them from the Markdown body, for example `![Dashboard showing source coverage](/images/my-dashboard.png)`. Write useful alt text and explain whether an image is a real output or an illustration.
+
 **Content locations**
 
 | Change | File |

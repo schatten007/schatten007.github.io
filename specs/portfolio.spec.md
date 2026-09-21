@@ -78,5 +78,14 @@ The visual language is an editorial fieldbook crossed with a systems exhibit: wa
 - [x] Implement filtering, search, the schema explainer, and print CV.
 - [x] Add metadata, social preview, sitemap, and favicon.
 - [x] Verify build, keyboard paths, mobile, no-JS reading, reduced motion, and accessibility.
-- [ ] Publish with GitHub Actions and verify the public URL.
+- [x] Publish with GitHub Actions and verify the public URL.
 - [x] Document content editing and rollback.
+
+## Launch verification — 21 September 2026
+
+- 12 static pages built; Astro check: 0 errors, warnings, or hints.
+- 20 Playwright checks passed across desktop and mobile, locally and in GitHub Actions.
+- Primary routes passed the automated serious/critical accessibility checks.
+- Published successfully in [GitHub Actions run 35597965127](https://github.com/schatten007/schatten007.github.io/actions/runs/35597965127).
+- Live home, CV Tailor, SchemaSentinel, lab, notes, about, PDF, social image, and sitemap returned HTTP 200.
+- Live browser confirmed that the home-page sculpture initializes.
