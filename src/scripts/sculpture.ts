@@ -58,7 +58,7 @@ export function mountSculpture() {
     context.lineWidth = .7;
     for (const { points, depth } of projected) {
       const opacity = Math.min(.83, Math.max(.13, .4 + depth / 270));
-      context.strokeStyle = `rgba(201, 242, 115, ${opacity})`;
+      context.strokeStyle = `rgba(255, 90, 38, ${opacity})`;
       context.beginPath();
       points.forEach((point, index) => index === 0 ? context.moveTo(point.x, point.y) : context.lineTo(point.x, point.y));
       context.stroke();

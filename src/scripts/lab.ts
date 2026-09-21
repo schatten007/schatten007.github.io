@@ -1,9 +1,9 @@
 type FixtureName = 'broken' | 'repaired' | 'unsupported';
 const reference = { type: 'object', properties: { location: { $ref: '#/$defs/Location' } }, required: ['location'] };
 const fixtures = {
-  broken: { label: 'DANGLING REFERENCE', input: { name: 'get_weather', inputSchema: reference } },
-  repaired: { label: 'LOCAL DEFINITION RESTORED', input: { name: 'get_weather', inputSchema: { ...reference, $defs: { Location: { type: 'string', minLength: 1 } } } } },
-  unsupported: { label: 'EXTERNAL REFERENCE', input: { name: 'get_weather', inputSchema: { type: 'object', properties: { location: { $ref: 'shared.json#/$defs/Location' } }, required: ['location'] } } },
+  broken: { label: 'BROKEN ON PURPOSE', input: { name: 'get_weather', inputSchema: reference } },
+  repaired: { label: 'FIXED VERSION', input: { name: 'get_weather', inputSchema: { ...reference, $defs: { Location: { type: 'string', minLength: 1 } } } } },
+  unsupported: { label: 'OUT OF SCOPE', input: { name: 'get_weather', inputSchema: { type: 'object', properties: { location: { $ref: 'shared.json#/$defs/Location' } }, required: ['location'] } } },
 };
 let current: FixtureName = 'broken';
 const buttons = document.querySelectorAll<HTMLButtonElement>('[data-fixture]');
@@ -40,18 +40,18 @@ buttons.forEach(button => button.addEventListener('click', () => {
   buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
   if (code) code.textContent = JSON.stringify(fixtures[current].input, null, 2);
   if (label) label.textContent = fixtures[current].label;
-  showResult('↳', 'New input. New question.', 'Inspect this fixture to see whether its reference can be followed.', 'READY TO INSPECT', 'Each result applies only to the selected teaching example.', 'ready');
+  showResult('↳', 'New file. Run it again.', 'Press “Run the check” on this version and read what comes back.', 'READY TO INSPECT', 'Each result is only about the file on the left. Nothing here runs the full SchemaSentinel CLI.', 'ready');
 }));
 
 run?.addEventListener('click', () => {
   const schema = fixtures[current].input.inputSchema;
   const ref = schema.properties.location.$ref;
-  // Intentionally a one-reference explainer, not a replacement for the full linter.
+  // A one-reference teaching demo, not the full linter.
   if (!ref.startsWith('#/')) {
-    showResult('?', 'No trustworthy verdict.', 'This reference points outside the current document. A local-only check cannot follow it.', 'EXIT 2 / UNSUPPORTED REFERENCE', 'Next step: inspect the external definition with a tool that supports it, or supply a self-contained local schema.', 'unknown');
+    showResult('?', 'No trustworthy verdict.', 'This points to shared.json, a different file. This demo only follows references inside the file, so it cannot say if that one is good or bad.', 'EXIT 2 / UNSUPPORTED REFERENCE', 'Next step: open the other file with a tool that supports external references, or copy the definition into this schema.', 'unknown');
   } else if (!('$defs' in schema)) {
-    showResult('!', 'The contract is broken.', 'The location field points to #/$defs/Location, but that definition is absent.', 'EXIT 1 / SS-REF-001', 'Fix: restore the $defs block or inline the referenced schema. Try “Restore the definition” to inspect the repaired fixture.', 'error');
+    showResult('!', 'Yes — broken, as advertised.', 'location points to #/$defs/Location, but there is no $defs block in this file. The checker stops here.', 'EXIT 1 / SS-REF-001', 'Fix: restore the $defs block or inline the referenced schema. Try fixture 02 next — the same file with the definition put back.', 'error');
   } else {
-    showResult('✓', 'This reference holds up.', 'Location resolves to a local definition: a non-empty string. The dangling-reference check has no finding.', 'EXIT 0 / NO FINDINGS IN THIS EXAMPLE', 'A narrow pass: this teaching check followed one local reference. It does not establish general MCP compliance.', 'success');
+    showResult('✓', 'This one passes the narrow check.', 'Same file, but Location is now defined as a non-empty string. The reference resolves, so there is nothing to report.', 'EXIT 0 / NO FINDINGS IN THIS EXAMPLE', 'Narrow means narrow: this only checks the one local reference. It says nothing about MCP compliance in general.', 'success');
   }
 });

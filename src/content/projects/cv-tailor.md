@@ -1,7 +1,7 @@
 ---
 title: CV Tailor
 subtitle: Better applications. Same actual human.
-description: An evidence-led AI toolkit that turns a job description and real career history into a focused application. Every claim has to come from somewhere.
+description: OpenCode skills that tailor a CV to a job ad without inventing experience. Six small skills, each doing one job.
 category: Automation
 tags: [Python, OpenCode, AI workflows, Playwright]
 date: 2026-09-20
@@ -13,54 +13,54 @@ source: https://github.com/schatten007/cv-tailor/tree/4f5031617853fea08f66697f30
 visual: tailor
 accent: lime
 evidence: '06'
-evidenceLabel: focused, independently usable skills
-takeaway: Give the model a useful job. Give the workflow a clear boundary.
+evidenceLabel: small skills you can use separately
+takeaway: I gave the model a small job and kept the final decision with the person applying.
 architecture:
   - title: Gather
-    detail: Career evidence + role requirements
+    detail: Job ad plus the history you supply
   - title: Map
-    detail: Match requirements to supported facts
+    detail: Requirements matched to facts you gave
   - title: Compose
-    detail: Tailored, ATS-readable documents
+    detail: Clean drafts an ATS can read
   - title: Review
-    detail: Human review before submission
+    detail: You check everything before it goes out
 ---
 
 ## The problem
 
-Tailoring an application is a surprisingly fragmented workflow: read the role, find the relevant experience, research the company, write the documents, then repeat much of the work in a portal. A language model can help with the writing. It can also make a candidate sound more qualified than their evidence supports.
+A job ad asks for one thing. Your CV has another. The portal wants it all in a third format. Most of the work is copying facts between boxes, and that is exactly where a language model starts inventing details to fill the gaps.
 
-CV Tailor makes the evidence boundary part of the workflow itself.
+I wanted the help with the writing without the invented details.
 
 ## What I built
 
-An open-source skill toolkit for OpenCode, with six focused capabilities: role-specific CV tailoring, master CV maintenance, company research, cover letters, interview preparation, and browser-assisted application forms. Each companion skill is independently usable and activates on an explicit request.
+CV Tailor is a set of OpenCode skills. The main one tailors a CV to a single job ad. Five smaller ones handle the rest: keeping a master CV, researching a company, writing a cover letter, preparing for interviews, and filling in web forms. Each one only runs when you ask for it.
 
-The default tailoring flow maps a role's requirements to the candidate's supplied experience. Missing facts stay visible rather than becoming invented achievements. German and DACH application conventions are first-class concerns, alongside international and technical roles.
+The tailoring step compares the ad against the history you paste in. Anything without support stays marked as missing. I also put in the German application conventions I kept running into, like the tabular CV and the Anschreiben, alongside the international format.
 
-Python helpers handle local document generation and staging. The browser-assisted flow uses a browser MCP and leaves the final application submission to the person applying.
+The Python helpers only touch local files and never call the network. Browser work goes through a separate MCP integration. The form filler stops at the review screen. Submitting is always your click, not its.
 
 ## The interesting engineering decision
 
-The workflow separates **what the assistant can write** from **what the automation can do**.
+I split **writing words** from **doing things**.
 
-- Document helpers operate on local files and make no network calls.
-- Browser control lives in a separate integration.
-- Companion skills do not silently activate one another.
-- The application workflow ends at review, with a testable submission boundary.
+- Writing and formatting stays in local helpers.
+- Browser control lives in its own integration.
+- Skills do not trigger each other behind your back.
+- The application flow ends at review, and a test checks that boundary.
 
-That separation makes it easier to inspect a failure: a document problem, a missing career fact, and a browser-state problem are different things with different recovery paths.
+When something goes wrong, I know where to look. A bad document, a missing fact, and a browser hiccup look different and get fixed differently.
 
 ## Evidence you can inspect
 
-The public repository contains the skill definitions, JSON contracts, reference material, Python helpers, and a synthetic browser fixture. The browser suite exercises the review-only workflow and checks that the fixture's submission count remains zero.
+The repo has the skill files, JSON schemas, reference notes, Python helpers, and a fake local portal for testing. The browser test walks through a full application and asserts the fake portal’s submission counter stays at zero.
 
-The Python test configuration enforces a 90% coverage threshold for the selected helper modules. That is a configured quality gate, not a claim here that every possible portal or document format has been tested.
+The Python config sets a 90% coverage bar for the helper modules. That is a setting in the repo, not proof that every real portal works. I have not tested every ATS or every form layout.
 
 ## Scope and next steps
 
-The toolkit supports an application workflow; it does not guarantee an interview or identical parsing across every ATS. Browser integrations also depend on the actual portal and the user's session.
+This helps you prepare an application. It does not get you an interview, and it cannot make two parsers agree. Real portals also change, and your browser session matters.
 
-A useful next evaluation would compare generated documents against a fixed set of role requirements and candidate facts, then check both unsupported claims and omitted relevant evidence. Those are separate failure modes, and both deserve a score.
+What I would test next: take a fixed set of ads and histories, generate documents, and score two things separately. How many claims lack support. And how much relevant history got left out. Those fail in different ways, so they need different scores.
 
-*Case study based on the public repository snapshot from 20 September 2026. No application-success or time-saved metrics are claimed.*
+*Write-up based on the public repo on 20 September 2026. I claim no placement rates or time saved.*

@@ -3,7 +3,7 @@ import { type Page } from '@playwright/test';
 export class FieldbookPage {
   constructor(readonly page: Page) {}
 
-  get searchButton() { return this.page.getByRole('button', { name: 'Search the fieldbook' }); }
+  get searchButton() { return this.page.getByRole('button', { name: 'Search the site' }); }
   get searchDialog() { return this.page.getByRole('dialog', { name: 'FIND YOUR WAY' }); }
   get searchInput() { return this.page.getByRole('searchbox', { name: 'Search projects, notes, and pages' }); }
   get workCards() { return this.page.getByRole('article'); }
@@ -18,6 +18,6 @@ export class FieldbookPage {
     await this.page.getByRole('button', { name }).click();
   }
   async inspectFixture() {
-    await this.page.getByRole('button', { name: 'Inspect this schema' }).click();
+    await this.page.getByRole('button', { name: 'Run the check' }).click();
   }
 }

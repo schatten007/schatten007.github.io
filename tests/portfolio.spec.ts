@@ -7,12 +7,12 @@ test('the fieldbook leads to real case studies without browser errors', async ({
   page.on('pageerror', error => errors.push(error.message));
   const book = new FieldbookPage(page);
   await book.goto();
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Curiosity,');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('I build tools');
   await expect(page.getByRole('article')).toHaveCount(3);
   await page.getByRole('heading', { name: 'CV Tailor', exact: true }).getByRole('link').click();
   await expect(page).toHaveURL(/\/work\/cv-tailor\/$/);
   await expect(page.getByRole('heading', { name: 'What I built', exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Inspect the source' })).toHaveAttribute('href', 'https://github.com/schatten007/cv-tailor');
+  await expect(page.getByRole('link', { name: 'Read the code' })).toHaveAttribute('href', 'https://github.com/schatten007/cv-tailor');
   expect(errors).toEqual([]);
 });
 
@@ -33,9 +33,9 @@ test('search supports empty results, keyboard navigation, and focus restoration'
   const book = new FieldbookPage(page);
   await book.goto();
   await book.search('there-is-no-such-project');
-  await expect(book.searchDialog.getByText('No trail here yet.', { exact: false })).toBeVisible();
+  await expect(book.searchDialog.getByText('Nothing found.', { exact: false })).toBeVisible();
   await book.searchInput.fill('schema');
-  await expect(book.searchDialog.getByRole('link', { name: /SchemaSentinel/ })).toBeVisible();
+  await expect(book.searchDialog.getByRole('link', { name: /SchemaSentinel/ }).first()).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(book.searchDialog).not.toBeVisible();
   await expect(book.searchButton).toBeFocused();
@@ -105,7 +105,7 @@ test('navigation works on both desktop and mobile', async ({ page, isMobile }) =
     await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Notes', exact: true }).click();
   }
   await expect(page).toHaveURL(/\/notes\/$/);
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Follow the');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Notes to');
 });
 
 test('case studies and navigation remain readable without JavaScript', async ({ browser, baseURL, isMobile }) => {
@@ -113,7 +113,7 @@ test('case studies and navigation remain readable without JavaScript', async ({ 
   const page = await context.newPage();
   await page.goto(`${baseURL}/work/schema-sentinel/`);
   await expect(page.getByRole('heading', { name: 'Why the exit codes matter' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Inspect the source' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Read the code' })).toBeVisible();
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'About', exact: true }).click();
   await expect(page).toHaveURL(/\/about\/$/);
   await context.close();
@@ -145,6 +145,6 @@ test('social metadata, sitemap, recovery page, and local reading links resolve',
   expect((await request.get('/social-card.png')).status()).toBe(200);
   expect((await request.get('/sitemap-index.xml')).status()).toBe(200);
   await page.goto('/404.html');
-  await expect(page.getByRole('heading', { name: 'A trail not taken.' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Back to the fieldbook' })).toHaveAttribute('href', '/');
+  await expect(page.getByRole('heading', { name: 'That page isn’t here.' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Back home' })).toHaveAttribute('href', '/');
 });

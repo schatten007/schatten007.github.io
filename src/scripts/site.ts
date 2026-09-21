@@ -38,11 +38,11 @@ function renderSearch() {
     return words.every(word => haystack.includes(word));
   });
   results.replaceChildren();
-  summary.textContent = words.length ? `${matches.length} ${matches.length === 1 ? 'RESULT' : 'RESULTS'}` : 'TAKE A LOOK AROUND';
+  summary.textContent = words.length ? `${matches.length} ${matches.length === 1 ? 'RESULT' : 'RESULTS'}` : 'TYPE TO SEARCH';
   if (!matches.length) {
     const empty = document.createElement('p');
     empty.className = 'search-empty';
-    empty.textContent = 'No trail here yet. Try “AI”, “schema”, “data”, or “CV”.';
+    empty.textContent = 'Nothing found. Try “CV”, “schema”, or “jobs”.';
     results.append(empty);
     return;
   }
@@ -133,7 +133,7 @@ copyButton?.addEventListener('click', async () => {
   const status = document.querySelector('[data-copy-status]');
   try {
     await navigator.clipboard.writeText(copyButton.dataset.copyLink || window.location.origin);
-    if (status) status.textContent = 'LINK COPIED. PASS IT ON.';
+    if (status) status.textContent = 'Link copied.';
   } catch {
     if (status) status.textContent = `${copyButton.dataset.copyLink || window.location.origin} — select and copy this address.`;
   }

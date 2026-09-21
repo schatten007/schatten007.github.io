@@ -1,42 +1,40 @@
 ---
 title: The chart is not the database.
-description: A small architectural boundary that makes an analytical dashboard easier to trust.
+description: Why the dashboard in my labour project only shows numbers from a checked export.
 category: Data systems
 date: 2026-09-20
 readingTime: 3 min
 relatedProject: labour-observatory
 ---
 
-A frontend can calculate almost anything. That does not mean it should.
+The frontend can compute anything. That is the problem.
 
-In an analytical product, an innocent-looking client-side transformation can introduce a second definition of a metric. The backend counts one population. The chart filters another. A tooltip divides by a third. All three numbers may look reasonable.
+I once had three versions of one metric: the backend counted one group, the chart filtered another, and the tooltip divided by a third. All three looked reasonable. None of them matched.
 
 ## Give the UI one job
 
-The EU Tech Labour Observatory uses a useful constraint: the application renders a checked export. If a figure is not in that export, the interface does not manufacture it.
+In the labour project, the React app only renders a checked export. If a number is not in that export, it is not on screen.
 
-The collection and transformation pipeline owns the source scope, mappings, denominators, and quality checks. The frontend owns the explanation and presentation.
+The pipeline owns sources, mappings, denominators, and checks. The frontend owns wording and layout.
 
 ```text
-source → checked transformations → published contract → display
+source → checked transforms → published file → screen
 ```
 
-This creates a shared definition that can feed both an interactive dashboard and a no-JavaScript audit page.
+One definition feeds both the dashboard and the plain HTML page. When they disagree, I know the export is stale, not that someone redefined a metric in a component.
 
-## Missing is a legitimate state
+## Missing is a real state
 
-The German source used by the project does not provide a structured occupation field. The dashboard therefore cannot publish a structured occupation ranking for that source.
+The German source has no occupation field. So the German occupation panel says so. It would be easy to guess from job titles and fill the empty box. That guess would be a new model with its own error rate, hiding inside a product that otherwise reports what sources said.
 
-There is a tempting shortcut: classify job titles and fill the empty panel. That would create a new model, with a new error profile, inside a product that otherwise reports source observations. It is a different feature and needs a different explanation.
+“Not available from this source” is the accurate chart.
 
-Displaying “not available from this source” preserves the distinction.
+## Keep the denominator next to the number
 
-## Carry the denominator
+“Top regions” sounds national even when the data is a capped sample across 400 regions. I keep the scope and the caveat next to the chart, not in a separate methods page nobody opens.
 
-A ranking without its scope invites the reader to supply one. “Top regions” sounds national even when the data comes from a bounded sample. Keeping the denominator and sampling caveat beside the chart reduces that ambiguity.
+Same with missing rows. Dropping them quietly changes the group you counted. Showing them keeps the transform honest.
 
-The same principle applies to missing values: dropping unresolved rows quietly changes the population. Keeping them visible makes the transformation inspectable.
+**What I do now:** the export has to carry enough context that the UI cannot accidentally tell a stronger story than the source.
 
-**Practical rule:** make the data contract carry enough context that the UI cannot accidentally tell a stronger story than the source.
-
-Source: [EU Tech Labour Observatory's two-surface design and methodology](https://github.com/schatten007/EU-Tech-Labor-Observatory/tree/8ca23914700c199c90e8b39ba2fc4e25475eff95).
+Source: [The observatory’s app rules and methodology](https://github.com/schatten007/EU-Tech-Labor-Observatory/tree/8ca23914700c199c90e8b39ba2fc4e25475eff95).

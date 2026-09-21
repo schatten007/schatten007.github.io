@@ -3,9 +3,9 @@ export const site = {
   name: 'H. A.',
   handle: 'schatten',
   githubHandle: 'schatten007',
-  title: 'Schatten — Curiosity, engineered.',
+  title: 'schatten — I build AI tools that show their work.',
   description:
-    'An engineering fieldbook by H. A. Applied AI, useful automation, and the systems behind them. Explore the work, inspect the evidence, and follow the experiments.',
+    'I’m H. A., a software engineer in Deggendorf. Recent work: CV Tailor, SchemaSentinel, and a labour-market data project. Each write-up says what it does, where it’s rough, and where the code is.',
   url: 'https://schatten007.github.io',
   github: 'https://github.com/schatten007',
   location: 'Deggendorf, Germany',
