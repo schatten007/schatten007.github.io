@@ -1,0 +1,13 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { getNotes, getProjects, formatDate } from '../../lib/content';
+export async function getStaticPaths() {
+  return (await getNotes()).map(note => ({ params: { id: note.id }, props: { note } }));
+}
+const { note } = Astro.props;
+const { Content } = await render(note);
+const related = (await getProjects()).find(project => project.id === note.data.relatedProject);
+---
+<Base title={note.data.title} description={note.data.description} class="note-page"><div class="reading-progress" aria-hidden="true"></div><section class="note-intro container"><a class="breadcrumb mono" href="/notes/">← THE NOTEBOOK</a><div class="case-eyebrow mono"><span>{note.data.category}</span><span>{formatDate(note.data.date)} · {note.data.readingTime} read</span></div><h1>{note.data.title}</h1><p>{note.data.description}</p></section><article class="prose note-prose"><Content />{related && <a class="related-project" href={`/work/${related.id}/`}><span class="mono">PUT THE NOTE IN CONTEXT</span><strong>{related.data.title}<Icon /></strong><span>Read the project case study.</span></a>}</article></Base>

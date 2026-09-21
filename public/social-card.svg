@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#191a17"/>
+  <g fill="none" stroke="#3d3f36"><path d="M55 99h1090M55 547h1090"/></g>
+  <path d="M58 71V43h16v11h20v17H78V60H58Z" fill="none" stroke="#c9f273" stroke-width="2.5"/>
+  <text x="111" y="70" fill="#f1f0e7" font-size="30" font-family="Arial,sans-serif" font-weight="bold" letter-spacing="-1.7">schatten<tspan fill="#c9f273">.</tspan></text>
+  <text x="1145" y="63" text-anchor="end" fill="#b0b0a4" font-size="11" font-family="monospace" letter-spacing="1.5">AN ENGINEERING FIELDBOOK</text>
+  <text x="55" y="155" fill="#b0b0a4" font-size="11" font-family="monospace" letter-spacing="1.5">APPLIED AI · USEFUL AUTOMATION · SYSTEMS</text>
+  <text x="49" y="305" fill="#f1f0e7" font-size="128" font-family="Arial,sans-serif" letter-spacing="-9">Curiosity,</text>
+  <text x="51" y="439" fill="#c9f273" font-size="145" font-style="italic" font-family="Georgia,serif" letter-spacing="-7">engineered.</text>
+  <g transform="translate(930 315) rotate(-30)" fill="none" stroke="#c9f273" stroke-width=".9" opacity=".65">
+    <ellipse rx="160" ry="143"/><ellipse rx="154" ry="143"/><ellipse rx="145" ry="143"/><ellipse rx="132" ry="143"/><ellipse rx="116" ry="143"/><ellipse rx="97" ry="143"/><ellipse rx="75" ry="143"/><ellipse rx="51" ry="143"/><ellipse rx="26" ry="143"/><ellipse rx="5" ry="143"/>
+    <ellipse rx="160" ry="132"/><ellipse rx="160" ry="116"/><ellipse rx="160" ry="97"/><ellipse rx="160" ry="75"/><ellipse rx="160" ry="51"/><ellipse rx="160" ry="26"/>
+  </g>
+  <circle cx="61" cy="580" r="4" fill="#c9f273"/>
+  <text x="77" y="584" fill="#b0b0a4" font-size="11" font-family="monospace">H. A. / SOFTWARE ENGINEER</text>
+  <text x="1145" y="584" text-anchor="end" fill="#c9f273" font-size="13" font-family="monospace">schatten007.github.io ↗</text>
+</svg>

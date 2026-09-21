@@ -1,0 +1,7 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+interface Props { notes: CollectionEntry<'notes'>[]; }
+const { notes } = Astro.props;
+---
+<div class="note-list">{notes.map((note, index) => <a class="note-row" href={`/notes/${note.id}/`}><span class="note-index mono">{String(index + 1).padStart(2, '0')}</span><div class="note-row-content"><span class="mono note-category">{note.data.category}</span><h3>{note.data.title}</h3><p>{note.data.description}</p></div><span class="note-readtime mono">{note.data.readingTime} read</span><span class="note-arrow"><Icon size={24} /></span></a>)}</div>

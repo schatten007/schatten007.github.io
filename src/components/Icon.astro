@@ -1,0 +1,20 @@
+---
+interface Props { name?: string; size?: number; class?: string; }
+const { name = 'arrow-up-right', size = 20, class: className } = Astro.props;
+const paths: Record<string, string> = {
+  'arrow-up-right': 'M5 19 19 5M5 5h14v14',
+  'arrow-right': 'M4 12h16m-7-7 7 7-7 7',
+  'arrow-down': 'M12 4v16m-7-7 7 7 7-7',
+  search: 'm21 21-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+  close: 'm6 6 12 12M6 18 18 6',
+  menu: 'M4 8h16M4 16h16',
+  plus: 'M12 4v16M4 12h16',
+  play: 'm9 5 11 7-11 7Z',
+  pause: 'M8 5v14M16 5v14',
+  check: 'm5 12 4 4L19 6',
+  file: 'M14 2H5v20h14V7Zm0 0v5h5M8 12h8M8 16h6',
+  copy: 'M9 9h12v12H9zM15 9V3H3v12h6',
+  github: 'M9 19c-4 1-4-2-6-2m12 5v-4c0-1-.1-1.5-.6-2 3.1-.4 6.4-1.5 6.4-7A5.5 5.5 0 0 0 19.3 5a5 5 0 0 0-.1-4S18 1 15 2.5a13.5 13.5 0 0 0-6 0C6 1 4.8 1 4.8 1a5 5 0 0 0-.1 4A5.5 5.5 0 0 0 3.2 9c0 5.5 3.3 6.6 6.4 7-.5.5-.6 1.2-.6 2v4',
+};
+---
+<svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class={className} aria-hidden="true"><path d={paths[name] ?? paths['arrow-up-right']} /></svg>

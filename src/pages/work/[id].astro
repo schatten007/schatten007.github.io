@@ -1,0 +1,21 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import ProjectArt from '../../components/ProjectArt.astro';
+import { getProjects, formatDate } from '../../lib/content';
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project, index) => ({ params: { id: project.id }, props: { project, next: projects[(index + 1) % projects.length] } }));
+}
+const { project, next } = Astro.props;
+const { data } = project;
+const { Content, headings } = await render(project);
+---
+<Base title={data.title} description={data.description} class={`case-study accent-${data.accent}`}>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <section class="case-intro container"><a class="breadcrumb mono" href="/work/">← THE WORK INDEX</a><div class="case-eyebrow mono"><span>{data.category.toUpperCase()} / {data.date.getUTCFullYear()}</span><span>{data.status}</span></div><h1>{data.title}<span class="lime">.</span></h1><p class="case-subtitle"><em>{data.subtitle}</em></p><div class="case-overview"><p>{data.description}</p><a class="button button-lime" href={data.repo} target="_blank" rel="noreferrer">Inspect the source <Icon /></a></div><div class="case-tags project-tags">{data.tags.map(tag => <span>{tag}</span>)}</div><ProjectArt kind={data.visual} /></section>
+  <div class="case-body container"><aside class="case-sidebar"><span class="mono">IN THIS CASE STUDY</span><nav aria-label="Case study sections">{headings.filter(heading => heading.depth === 2).map(heading => <a href={`#${heading.slug}`}>{heading.text}</a>)}</nav><div class="case-evidence"><strong>{data.evidence}</strong><p>{data.evidenceLabel}</p><a href={data.source} target="_blank" rel="noreferrer">Source snapshot <Icon size={14} /></a><span class="mono">{formatDate(data.date)}</span></div></aside><article class="prose"><div class="takeaway"><span class="mono">THE SHORT VERSION</span><p>{data.takeaway}</p></div><Content /></article></div>
+  <section class="architecture-section container"><div class="section-label mono"><span>+ / THE SYSTEM, AT A GLANCE</span><span>CONCEPTUAL ARCHITECTURE</span></div><div class="architecture-flow">{data.architecture.map((step, index) => <div class="architecture-step"><span class="mono">0{index + 1}</span><h3>{step.title}</h3><p>{step.detail}</p>{index < data.architecture.length - 1 && <span class="architecture-arrow" aria-hidden="true">→</span>}</div>)}</div></section>
+  {next.id !== project.id && <a class="next-project container" href={`/work/${next.id}/`}><div><span class="mono">NEXT ARTIFACT</span><h2>{next.data.title}</h2></div><Icon size={42} /></a>}
+</Base>

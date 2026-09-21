@@ -1,0 +1,24 @@
+---
+// Server-rendered geometry is also the no-JS / no-canvas fallback.
+const lines = Array.from({ length: 34 }, (_, index) => {
+  const angle = (index / 34) * Math.PI;
+  return { angle: angle * 180 / Math.PI, rx: Math.max(7, Math.abs(Math.cos(angle)) * 163) };
+});
+---
+<div class="signal-exhibit">
+  <div class="exhibit-topline mono"><span><span class="status-dot"></span> THE CURIOSITY LOOP</span><span>OBJECT_001</span></div>
+  <div class="sculpture-stage">
+    <svg class="sculpture-fallback" viewBox="0 0 520 490" aria-hidden="true"><g transform="translate(260 245) rotate(-28)" fill="none" stroke="#c9f273" stroke-width=".65">{lines.map(({ rx, angle }) => <ellipse rx={rx} ry="168" transform={`rotate(${angle * .14})`} opacity=".65" />)}</g></svg>
+    <canvas class="signal-canvas" aria-hidden="true"></canvas>
+    <span class="sculpture-label label-input mono"><i></i>01 / QUESTION</span>
+    <span class="sculpture-label label-build mono">02 / BUILD<i></i></span>
+    <span class="sculpture-label label-learn mono"><i></i>03 / LEARN ↺</span>
+    <div class="sculpture-center"><span>∞</span><span class="mono">STAY CURIOUS</span></div>
+    <span class="exhibit-axis axis-horizontal" aria-hidden="true"></span><span class="exhibit-axis axis-vertical" aria-hidden="true"></span>
+  </div>
+  <div class="exhibit-bottomline"><span class="mono">IDEA → SYSTEM → BETTER QUESTION</span><button class="motion-toggle icon-button js-only" aria-label="Pause sculpture animation" aria-pressed="false"><span data-motion-icon>Ⅱ</span></button></div>
+</div>
+<script>
+  import { mountSculpture } from '../scripts/sculpture';
+  mountSculpture();
+</script>

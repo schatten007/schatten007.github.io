@@ -1,0 +1,21 @@
+---
+interface Props { kind: string; compact?: boolean; }
+const { kind, compact = false } = Astro.props;
+---
+<div class:list={['project-art', `art-${kind}`, { 'art-compact': compact }]} aria-hidden="true">
+  <span class="art-coordinate mono">FIG. {kind === 'tailor' ? '01' : kind === 'sentinel' ? '02' : '03'} / SYSTEM STUDY</span>
+  {kind === 'tailor' ? (
+    <div class="tailor-composition">
+      <div class="evidence-card evidence-card-back"><div class="mini-card-top"><span>↳</span><span class="mono">THE OPPORTUNITY</span></div><strong>AI Engineer</strong><div class="fake-line w80"></div><div class="fake-line w60"></div><span class="mini-tag">ROLE REQUIREMENTS</span><div class="fake-line"></div><div class="fake-line w80"></div></div>
+      <div class="evidence-card evidence-card-front"><div class="mini-card-top"><span class="mini-logo">s.</span><span class="mono">EVIDENCE → APPLICATION</span><span>↗</span></div><strong>A better fit.<br /><em>Not a different you.</em></strong><div class="evidence-match"><span class="match-dot"></span><span>Real experience</span><span class="match-line"></span><span>Relevant evidence</span></div><div class="fake-line w80"></div><div class="fake-line w60"></div><div class="document-footer"><span class="mono">CV TAILOR</span><span class="verified-pill">✓ grounded</span></div></div>
+      <span class="floating-label mono"><span>✳</span> FACTS IN. FICTION OUT.</span>
+    </div>
+  ) : kind === 'sentinel' ? (
+    <div class="sentinel-composition"><div class="terminal-window"><div class="terminal-bar"><div><i></i><i></i><i></i></div><span class="mono">schema-sentinel</span><span>↗</span></div><div class="terminal-body mono"><div class="terminal-command"><span>~</span> validate tools.json</div><div class="terminal-code">"location": &#123;<br />&nbsp; "$ref": <span>"#/$defs/Location"</span><br />&#125;</div><div class="terminal-error"><span class="terminal-error-dot">!</span><div>SS-REF-001<small>Reference target not found</small></div><span>↗</span></div><div class="terminal-bottom">1 finding <span>·</span> a fix, not a guess.</div></div></div><span class="sentinel-sticker">CHECK<br /><em>the contract.</em></span></div>
+  ) : kind === 'observatory' ? (
+    <div class="observatory-composition"><div class="dashboard-window"><div class="dashboard-header"><span class="dashboard-logo">◉</span><strong>Job Market Pulse</strong><span class="mono">EU / TECH</span></div><div class="dashboard-grid"><div><span class="dashboard-eyebrow mono">OBSERVE. DON’T INFER.</span><div class="dashboard-bars">{[42, 68, 49, 88, 64, 98, 78, 55, 86, 69, 93, 76].map((height, i) => <i style={`--bar-height:${height}%;--bar-delay:${i * 45}ms`}></i>)}</div><span class="dashboard-caption mono">ILLUSTRATIVE · NOT LIVE DATA</span></div><div class="dashboard-side"><span class="mono">SOURCE SCOPES</span><strong>02<span>↗</span></strong><hr /><span class="source-row">Sweden <i></i></span><span class="source-row">Germany <i></i></span><small>Different scopes.<br />Kept separate.</small></div></div></div><span class="observatory-label mono">EVERY NUMBER HAS A CONTEXT.</span></div>
+  ) : (
+    <div class="generic-composition"><span>↗</span><span class="mono">AN IDEA, IMPLEMENTED.</span></div>
+  )}
+  <span class="art-footnote mono">CONCEPTUAL EXHIBIT</span>
+</div>
