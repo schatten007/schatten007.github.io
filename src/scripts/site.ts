@@ -15,7 +15,7 @@ mobileToggle?.addEventListener('click', () => {
   mobileToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
 });
 mobileNav?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
-window.matchMedia('(min-width: 861px)').addEventListener('change', closeMobileMenu);
+window.matchMedia('(min-width: 721px)').addEventListener('change', closeMobileMenu);
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && mobileNav && !mobileNav.hidden) {
     closeMobileMenu();
@@ -139,12 +139,23 @@ copyButton?.addEventListener('click', async () => {
   }
 });
 
-function updateTime() {
-  const time = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
-  document.querySelectorAll('[data-local-time]').forEach(element => { element.textContent = `${time} LOCAL`; });
+const motionButton = document.querySelector<HTMLButtonElement>('[data-toggle-motion]');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+function setMotion(paused: boolean, persist = false) {
+  document.documentElement.dataset.motion = paused ? 'paused' : 'running';
+  motionButton?.setAttribute('aria-pressed', String(paused));
+  motionButton?.setAttribute('aria-label', paused ? 'Play animations' : 'Pause animations');
+  const icon = motionButton?.querySelector('[data-motion-icon]');
+  const text = motionButton?.querySelector('[data-motion-text]');
+  if (icon) icon.textContent = paused ? '▷' : 'Ⅱ';
+  if (text) text.textContent = paused ? 'Motion off' : 'Motion on';
+  if (persist) {
+    try { localStorage.setItem('save-point-motion', paused ? 'paused' : 'running'); } catch { /* Keep the control usable without storage. */ }
+  }
 }
-updateTime();
-setInterval(updateTime, 60_000);
+motionButton?.addEventListener('click', () => setMotion(document.documentElement.dataset.motion !== 'paused', true));
+reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) setMotion(true); });
+setMotion(document.documentElement.dataset.motion === 'paused');
 
 document.querySelector('[data-print-cv]')?.addEventListener('click', () => window.print());
 

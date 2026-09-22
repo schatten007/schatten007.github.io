@@ -3,10 +3,17 @@ import type { CollectionEntry } from 'astro:content';
 import ProjectArt from './ProjectArt.astro';
 import Icon from './Icon.astro';
 interface Props { project: CollectionEntry<'projects'>; index: number; featured?: boolean; }
-const { project, index, featured = false } = Astro.props;
+const { project, index } = Astro.props;
 const { data, id } = project;
 ---
-<article class:list={['project-card', `accent-${data.accent}`, { 'project-featured': featured }]} data-category={data.category}>
-  <a class="project-art-link" href={`/work/${id}/`} aria-label={`Explore ${data.title}`} tabindex="-1"><ProjectArt kind={data.visual} compact={!featured} /><span class="art-open"><Icon /></span></a>
-  <div class="project-card-content"><div class="project-meta mono"><span>{String(index + 1).padStart(2, '0')} / {data.category.toUpperCase()}</span><span>{data.date.getUTCFullYear()}</span></div><h3><a href={`/work/${id}/`}>{data.title}<Icon size={27} /></a></h3><p>{data.description}</p><div class="project-tags">{data.tags.slice(0, 3).map(tag => <span>{tag}</span>)}</div>{featured && <div class="featured-evidence"><strong>{data.evidence}</strong><span>{data.evidenceLabel}</span></div>}<a class="text-link project-case-link" href={`/work/${id}/`}>Read the write-up <Icon name="arrow-right" size={18} /></a></div>
+<article class:list={['project-card', `accent-${data.accent}`]} data-category={data.category}>
+  <div class="mission-topbar"><span class="mission-number mono">M-{String(index + 1).padStart(2, '0')}</span><span class="mono">{data.category}</span><Icon name="crosshair" size={18} /></div>
+  <a class="project-art-link" href={`/work/${id}/`} aria-label={`Explore ${data.title}`} tabindex="-1"><ProjectArt kind={data.visual} compact /></a>
+  <div class="project-card-content">
+    <div class="project-meta mono"><span>{data.status}</span><span>{data.date.getUTCFullYear()}</span></div>
+    <h3><a href={`/work/${id}/`}>{data.title}<Icon size={24} /></a></h3>
+    <p>{data.description}</p>
+    <div class="project-tags">{data.tags.slice(0, 3).map(tag => <span>{tag}</span>)}</div>
+    <a class="project-case-link" href={`/work/${id}/`}><span>READ PROJECT</span><Icon name="arrow-right" size={21} /></a>
+  </div>
 </article>

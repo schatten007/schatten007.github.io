@@ -3,19 +3,64 @@ interface Props { kind: string; compact?: boolean; }
 const { kind, compact = false } = Astro.props;
 ---
 <div class:list={['project-art', `art-${kind}`, { 'art-compact': compact }]} aria-hidden="true">
-  <span class="art-coordinate mono">FIG. {kind === 'tailor' ? '01' : kind === 'sentinel' ? '02' : '03'} / WHAT IT DOES</span>
+  <span class="art-coordinate mono">{kind === 'tailor' ? 'APPLICATION KIT' : kind === 'sentinel' ? 'SCHEMA SCANNER' : kind === 'observatory' ? 'DATA OBSERVATORY' : 'PROJECT FILE'}</span>
   {kind === 'tailor' ? (
-    <div class="tailor-composition">
-      <div class="evidence-card evidence-card-back"><div class="mini-card-top"><span>↳</span><span class="mono">THE OPPORTUNITY</span></div><strong>AI Engineer</strong><div class="fake-line w80"></div><div class="fake-line w60"></div><span class="mini-tag">ROLE REQUIREMENTS</span><div class="fake-line"></div><div class="fake-line w80"></div></div>
-      <div class="evidence-card evidence-card-front"><div class="mini-card-top"><span class="mini-logo">s.</span><span class="mono">EVIDENCE → APPLICATION</span><span>↗</span></div><strong>A better fit.<br /><em>Not a different you.</em></strong><div class="evidence-match"><span class="match-dot"></span><span>Real experience</span><span class="match-line"></span><span>Relevant evidence</span></div><div class="fake-line w80"></div><div class="fake-line w60"></div><div class="document-footer"><span class="mono">CV TAILOR</span><span class="verified-pill">✓ grounded</span></div></div>
-      <span class="floating-label mono"><span>✳</span> NO INVENTED EXPERIENCE.</span>
-    </div>
+    <svg viewBox="0 0 520 330" fill="none">
+      <g stroke="#243638" stroke-width="3" stroke-linejoin="round">
+        <path d="m235 63 182 25-22 226-183-25Z" fill="#bdc9b3"/>
+        <path d="m245 56 182 25-22 226-183-25Z" fill="#ece7d3"/>
+        <path d="m269 96 129 17m-132 8 112 14m-115 11 98 12" stroke="#71867b" stroke-width="5"/>
+        <path d="m87 85 181-28 34 228-182 27Z" fill="#21383c"/>
+        <path d="m99 72 181-28 34 229-182 26Z" fill="#f8efda"/>
+        <path d="m115 89 11 74 151-22-11-75Z" fill="#d85a37"/>
+        <path d="m133 190 127-18m-122 40 120-18m-117 39 87-13" stroke="#91a48c" stroke-width="7"/>
+        <path d="m157 260 76-10" stroke="#243638" stroke-width="4"/>
+        <path d="m322 181 47-6 13 78-47 7Z" fill="#f2c562"/>
+        <path d="m337 214 12 10 19-27" stroke="#29443e" stroke-width="5"/>
+      </g>
+      <text x="147" y="142" fill="#fff5df" font-family="monospace" font-size="35" font-weight="bold" transform="rotate(-8 147 142)">CV_</text>
+      <text x="270" y="180" fill="#243638" font-family="monospace" font-size="14" transform="rotate(8 270 180)">ROLE → FACTS</text>
+      <path d="M384 36h39m-19-19v39M67 224h22m-11-11v22" stroke="#d85a37" stroke-width="3"/>
+    </svg>
   ) : kind === 'sentinel' ? (
-    <div class="sentinel-composition"><div class="terminal-window"><div class="terminal-bar"><div><i></i><i></i><i></i></div><span class="mono">schema-sentinel</span><span>↗</span></div><div class="terminal-body mono"><div class="terminal-command"><span>~</span> validate tools.json</div><div class="terminal-code">"location": &#123;<br />&nbsp; "$ref": <span>"#/$defs/Location"</span><br />&#125;</div><div class="terminal-error"><span class="terminal-error-dot">!</span><div>SS-REF-001<small>Reference target not found</small></div><span>↗</span></div><div class="terminal-bottom">1 finding <span>·</span> with a suggested fix.</div></div></div><span class="sentinel-sticker">READ<br /><em>the error.</em></span></div>
+    <svg viewBox="0 0 520 330" fill="none">
+      <g stroke="#172c33" stroke-width="4" stroke-linejoin="round">
+        <path d="m105 70 309 9-13 208-312-8Z" fill="#7c9c91"/>
+        <path d="m90 53 309 9-14 208-312-8Z" fill="#bbcbb0"/>
+        <path d="m105 74 274 8-9 149-274-7Z" fill="#233c43"/>
+        <path d="m226 270-2 26-83-3v13l175 6 1-14-65-1 2-26" fill="#637f79"/>
+        <path d="m95 239 66 2m170 3 30 1" stroke="#526b64"/>
+      </g>
+      <g font-family="monospace" transform="rotate(2 110 90)">
+        <text x="122" y="112" fill="#b6d3b8" font-size="15">$ validate tools.json</text>
+        <text x="122" y="150" fill="#d7e4d1" font-size="15">"$ref": "#/Location"</text>
+        <rect x="115" y="173" width="228" height="39" fill="#804438" stroke="#dd8a69"/>
+        <text x="127" y="199" fill="#ffe3bb" font-size="18">! SS-REF-001</text>
+      </g>
+      <path d="m392 38 42 24-8 46-40 22-41-25 8-45Z" fill="#e3b55a" stroke="#1c3237" stroke-width="3"/>
+      <path d="m386 54 22 12-4 28-21 13-22-13 4-27Z" fill="none" stroke="#2d4645" stroke-width="3"/>
+      <path d="m384 69-1 16m0 9v2" stroke="#2d4645" stroke-width="5"/>
+    </svg>
   ) : kind === 'observatory' ? (
-    <div class="observatory-composition"><div class="dashboard-window"><div class="dashboard-header"><span class="dashboard-logo">◉</span><strong>Job Market Pulse</strong><span class="mono">EU / TECH</span></div><div class="dashboard-grid"><div><span class="dashboard-eyebrow mono">SHOW WHAT THE SOURCE SAYS.</span><div class="dashboard-bars">{[42, 68, 49, 88, 64, 98, 78, 55, 86, 69, 93, 76].map((height, i) => <i style={`--bar-height:${height}%;--bar-delay:${i * 45}ms`}></i>)}</div><span class="dashboard-caption mono">ILLUSTRATIVE · NOT LIVE DATA</span></div><div class="dashboard-side"><span class="mono">SOURCE SCOPES</span><strong>02<span>↗</span></strong><hr /><span class="source-row">Sweden <i></i></span><span class="source-row">Germany <i></i></span><small>Different scopes.<br />Kept separate.</small></div></div></div><span class="observatory-label mono">EVERY CHART NEEDS ITS SOURCE.</span></div>
+    <svg viewBox="0 0 520 330" fill="none">
+      <g stroke="#263c3e" stroke-width="3" stroke-linejoin="round">
+        <path d="m83 102 136-33 29 217-134 31Z" fill="#2a4449"/>
+        <path d="m75 88 136-33 29 217-134 31Z" fill="#f0e8cd"/>
+        <path d="m273 48 147 42-34 218-147-42Z" fill="#3b5858"/>
+        <path d="m280 33 147 42-34 218-147-42Z" fill="#e8e7cb"/>
+        <path d="m88 104 108-26 9 49-109 27Z" fill="#466c73"/>
+        <path d="m293 56 119 34-8 44-118-33Z" fill="#c95936"/>
+        <path d="m104 178 93-23m-90 44 93-23" stroke="#9aad98"/>
+        <path d="m277 135 121 34m-124-14 121 34" stroke="#aab89c"/>
+        <path d="m119 262-5-29 14-3 5 29Zm27-6-9-60 14-3 9 60Zm29-7-6-39 14-3 6 39Zm27-7-11-71 14-3 11 71Z" fill="#577c73"/>
+        <path d="m270 234 8-54 15 5-8 54Zm29 8 7-36 15 5-7 36Zm27 8 12-64 15 5-12 64Zm29 8 8-42 15 5-8 42Z" fill="#c37449"/>
+      </g>
+      <text x="131" y="133" fill="#f3eed7" font-family="monospace" font-size="25" font-weight="bold" transform="rotate(-13 131 133)">SE</text>
+      <text x="321" y="99" fill="#fff0d9" font-family="monospace" font-size="25" font-weight="bold" transform="rotate(15 321 99)">DE</text>
+      <path d="M40 69h27m-14-13v26M446 234h27m-13-13v26" stroke="#805134" stroke-width="3"/>
+    </svg>
   ) : (
-    <div class="generic-composition"><span>↗</span><span class="mono">AN IDEA, IMPLEMENTED.</span></div>
+    <svg viewBox="0 0 520 330" fill="none"><path d="M133 67h222l32 31v196H133Z" fill="#f1e5c8" stroke="#233c42" stroke-width="4"/><path d="M168 130h161m-161 37h130m-130 37h145" stroke="#749385" stroke-width="8"/><text x="162" y="262" fill="#ac4b32" font-family="monospace" font-size="30">&lt;/&gt;_</text></svg>
   )}
-  <span class="art-footnote mono">SIMPLIFIED DRAWING</span>
+  <span class="art-footnote mono">ILLUSTRATION{kind === 'observatory' ? ' / NOT LIVE DATA' : ''}</span>
 </div>

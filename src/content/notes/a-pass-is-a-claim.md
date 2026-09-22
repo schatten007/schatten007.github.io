@@ -1,42 +1,40 @@
 ---
-title: A pass is a claim. Make it a precise one.
-description: Why I gave SchemaSentinel an exit code for “couldn’t check properly”.
+title: Why the checker needs an exit 2
+description: What should a validator return when it cannot inspect the input? SchemaSentinel keeps that separate from a pass.
 category: Agent tooling
 date: 2026-09-21
 readingTime: 3 min
 relatedProject: schema-sentinel
 ---
 
-I used to read a green check as good news. Then I watched a schema pass a check the tool could not actually run, and the agent failed later with a worse error.
+Suppose a schema refers to `shared.json`, but the checker only understands references within the current document. Should the check pass?
 
-That is what exit 2 is for in SchemaSentinel.
+It hasn’t found a broken reference. It also hasn’t followed the reference. Returning success would hide that difference from the next step in the pipeline.
 
-## Three outcomes, not two
+## Three outcomes
 
-Zero means I looked and found nothing in scope. One means I looked and found one of the documented patterns. Two means I could not look properly — wrong dialect, external file, broken JSON.
-
-The external-file case is the one I kept getting wrong. My checker only follows local `#/` references. If a schema points to `shared.json`, I cannot say if that file is fine. Returning zero would turn “I didn’t look” into “looks good”.
-
-So it returns two and says so:
+SchemaSentinel uses three exit codes:
 
 ```text
-0  I checked, nothing in scope
-1  I checked, found something
-2  I couldn’t check properly
+0  check completed, no findings
+1  check completed, findings
+2  no trustworthy verdict
 ```
 
-“No findings” describes what I did. “Valid” would promise more than I checked.
+That last case covers inputs outside the supported dialect and reference rules, as well as input errors. It tells the caller that there is no result to rely on.
 
-## Keep “don’t know” in the status code
+The external-file example gets exit 2. A local reference with a missing target gets exit 1. Restore the target, and that particular reference check can complete without a finding.
 
-A warning in a log does not help if the pipeline only reads the exit code. I have seen this in other places too. A missing field is not the same as an unreadable document. No search hits is not the same as a dead index. An unhealthy service is not the same as a failed probe.
+## A log warning is easy to miss
 
-If those share one code, debugging starts with guessing which one it was.
+Many scripts make decisions from the process status alone. A sentence in the logs saying “couldn’t follow this reference” is little help if the command still exits successfully.
 
-## The boundary is part of the tool
+Putting the distinction in the exit code lets the caller decide what happens next. It might stop the job, ask for a self-contained schema, or use a checker with broader support.
 
-SchemaSentinel only handles JSON Schema 2020-12 with local references, and only three documented patterns. The test numbers make sense inside that box. Outside it, exit 2 is the honest answer.
+## What a pass actually means
 
-**What I do now:** before I add a green check anywhere, I write the one sentence it is allowed to mean.
+For this tool, “no findings” means the supported checks completed without finding one of the documented defect patterns. It doesn’t certify every aspect of the schema or its MCP integration.
 
-Source: [SchemaSentinel’s boundaries and exit codes](https://github.com/schatten007/SchemaSentinel/tree/1c222db3ee948c3cfa7e046c0d6daac74e7f03cd).
+That wording is less dramatic than “valid”, but it tells the next engineer what was checked. You can try the three cases in the [schema lab](/lab/#schema-bench).
+
+Source: [SchemaSentinel’s supported boundaries and exit codes](https://github.com/schatten007/SchemaSentinel/tree/1c222db3ee948c3cfa7e046c0d6daac74e7f03cd).

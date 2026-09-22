@@ -6,7 +6,15 @@ import { getProjects } from '../../lib/content';
 const projects = await getProjects();
 const categories = ['All', ...new Set(projects.map(project => project.data.category))];
 ---
-<Base title="Work I can walk you through" description="Three public projects with code and write-ups: what each one does, where it’s rough, and where the code lives.">
-  <section class="page-intro container"><SectionLabel number="01" label="WORK" extra={`${String(projects.length).padStart(2, '0')} PROJECTS`} /><h1>Three projects,<br /><em>each with code.</em></h1><div class="page-intro-bottom"><p>Three public repos with write-ups. Open one to see what it does, where it’s rough, and where the code lives.</p><span class="mono">CODE + WRITE-UP + LIMITS</span></div></section>
-  <section class="container work-section" aria-label="Project collection"><div class="work-toolbar js-only"><div class="filter-list" role="group" aria-label="Filter projects by category">{categories.map(category => <button data-filter={category} aria-pressed={category === 'All'}>{category}{category === 'All' && <span>{projects.length}</span>}</button>)}</div><span class="mono filter-status" data-filter-status role="status">{projects.length} projects</span></div><div class="work-grid">{projects.map((project, index) => <ProjectCard project={project} index={index} />)}</div><div class="index-colophon mono"><span>I ADD PROJECTS AS I FINISH THEM.</span><span>GITHUB ↗</span></div></section>
+<Base title="Mission select / Projects" description="Public projects in AI automation, developer tools, and data systems. Open a write-up to see the implementation and code.">
+  <section class="page-intro container">
+    <SectionLabel number="01" label="MISSION SELECT" extra={`${String(projects.length).padStart(2, '0')} PUBLIC PROJECTS`} />
+    <h1>PICK A PROJECT.<br /><em>SEE THE BUILD.</em></h1>
+    <div class="page-intro-bottom"><p>Each write-up covers what the project does, a decision worth explaining, and what still needs work. The source is linked throughout.</p><span class="mono">PROJECTS / IMPLEMENTATION / NOTES</span></div>
+  </section>
+  <section class="container work-section" aria-label="Project collection">
+    <div class="work-toolbar js-only"><div class="filter-list" role="group" aria-label="Filter projects by category">{categories.map(category => <button data-filter={category} aria-pressed={category === 'All'}>{category}{category === 'All' && <span>{projects.length}</span>}</button>)}</div><span class="mono filter-status" data-filter-status role="status">{projects.length} projects</span></div>
+    <div class="work-grid">{projects.map((project, index) => <ProjectCard project={project} index={index} />)}</div>
+    <div class="index-colophon mono"><span>EVERY ENTRY LINKS TO ITS SOURCE.</span><span>MORE BUILDS TO COME.</span></div>
+  </section>
 </Base>

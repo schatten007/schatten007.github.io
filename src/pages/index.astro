@@ -2,35 +2,78 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import SectionLabel from '../components/SectionLabel.astro';
-import SignalSculpture from '../components/SignalSculpture.astro';
+import CharacterLoadout from '../components/CharacterLoadout.astro';
+import RigArt from '../components/RigArt.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import NoteList from '../components/NoteList.astro';
 import { getProjects, getNotes } from '../lib/content';
 import { site } from '../data/site';
-const projects = (await getProjects()).filter(project => project.data.featured).slice(0, 3);
-const notes = (await getNotes()).slice(0, 2);
----
-<Base>
-  <section class="hero container" aria-labelledby="hero-title">
-    <div class="hero-topline mono"><span><span class="status-dot"></span> {site.name} / SOFTWARE ENGINEER</span><span>DEGGENDORF, GERMANY</span></div>
-    <div class="hero-grid">
-      <div class="hero-copy"><p class="hero-eyebrow mono">SOFTWARE ENGINEER · M.SC. STUDENT · DEGGENDORF</p><h1 id="hero-title">I build tools<br /><em>that show their work.</em></h1><p class="hero-description">I’m H. A. Recent work: CV Tailor, SchemaSentinel, and a labour-market data project. Each write-up says what it does, where it’s rough, and where the code is.</p><div class="hero-actions"><a class="button button-lime" href="#selected-work">See the projects <Icon name="arrow-down" size={19} /></a><a class="text-link" href="/about/">About me <Icon size={17} /></a></div></div>
-      <SignalSculpture />
-    </div>
-    <div class="hero-bottomline"><div class="hero-current"><span class="mono">NOW</span><span>M.Sc. Applied Computer Science, plus CV Tailor and SchemaSentinel</span></div><div class="hero-degree"><span class="tiny-cross" aria-hidden="true">+</span><span>M.Sc. Applied Computer Science<br /><span class="muted">Deggendorf Institute of Technology</span></span></div><a class="scroll-cue mono" href="#selected-work">SCROLL <span>↓</span></a></div>
-  </section>
 
-  <div class="principle-strip" aria-label="Recent work: CV Tailor, SchemaSentinel, Labour Observatory, lab demo."><div class="container"><span>CV Tailor</span><span class="strip-star" aria-hidden="true">✳</span><span>SchemaSentinel</span><span class="strip-star" aria-hidden="true">✳</span><span>Labour Observatory</span><span class="strip-star" aria-hidden="true">✳</span><span>Lab demo</span></div></div>
+const allProjects = await getProjects();
+const projects = allProjects.filter(project => project.data.featured).slice(0, 3);
+const notes = await getNotes();
+---
+<Base class="home-page">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-grid container">
+      <div class="hero-copy">
+        <div class="hero-id mono"><span class="id-marker">P1</span> {site.name} / SOFTWARE ENGINEER</div>
+        <p class="hero-kicker mono">WELCOME TO MY SAVE POINT.</p>
+        <h1 id="hero-title">ONE MORE<br /><em>TWEAK.</em><span class="title-cursor" aria-hidden="true">_</span></h1>
+        <p class="hero-description">I build AI tools and study Applied Computer Science in Deggendorf. Outside that: anime, RPGs, old-school shooters, and getting a little more out of my hardware.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#selected-work"><span class="button-pointer" aria-hidden="true">▶</span> CHOOSE A PROJECT <Icon name="arrow-right" /></a>
+          <a class="text-link" href="/about/">Character sheet <span class="link-context">/ about</span><Icon size={19} /></a>
+        </div>
+        <div class="hero-save-info mono"><span class="status-dot"></span> DEGGENDORF, DE <span class="save-separator">/</span> M.SC. STUDENT</div>
+      </div>
+      <CharacterLoadout />
+    </div>
+    <div class="hero-bottomline container">
+      <div><span class="mono">MAIN QUEST</span><strong>Applied AI & automation</strong></div>
+      <div><span class="mono">SIDE QUESTS</span><strong>Systems, hardware & games</strong></div>
+      <a href="/cv/"><Icon name="file" size={26} /><span><span class="mono">QUICK READ</span><strong>Open my CV</strong></span><Icon size={20} /></a>
+    </div>
+  </section>
 
   <section class="section container" id="selected-work">
-    <SectionLabel number="01" label="SELECTED WORK" extra="THREE PROJECTS WITH CODE" />
-    <div class="section-heading"><h2>Work I can<br /><em>walk you through.</em></h2><div><p>Each one has code you can read and a short write-up: what it does, what I’d do differently, and where it ends.</p><a class="text-link" href="/work/">All projects <Icon name="arrow-right" size={18} /></a></div></div>
-    <div class="selected-projects">{projects.map((project, index) => <ProjectCard project={project} index={index} featured={index === 0} />)}</div>
+    <SectionLabel number="01" label="MISSION SELECT" extra={`${String(allProjects.length).padStart(2, '0')} PUBLIC PROJECTS`} />
+    <div class="section-heading">
+      <div><h2>CHOOSE YOUR<br /><em>NEXT DEEP DIVE.</em></h2></div>
+      <div><p>Here’s the actual work. Each project has a write-up, source code, and a few things I’d still like to improve.</p><a class="text-link" href="/work/">All projects <Icon name="arrow-right" /></a></div>
+    </div>
+    <div class="selected-projects">{projects.map((project, index) => <ProjectCard project={project} index={index} />)}</div>
   </section>
 
-  <section class="lab-teaser section" aria-labelledby="lab-heading"><div class="container"><SectionLabel number="02" label="THE LAB" extra="ONE BUG, THREE VERSIONS" /><div class="lab-teaser-grid"><div class="lab-teaser-copy"><span class="pill pill-outline mono">RUNS IN YOUR BROWSER</span><h2 id="lab-heading">What happens<br />if I <em>break this?</em></h2><p>A schema bug from SchemaSentinel, cut down to three small files. Pick one, run the check, read the result.</p><a class="button button-dark" href="/lab/">Enter the lab <Icon size={20} /></a></div><a class="lab-experiment-preview" href="/lab/" aria-label="Try the schema fault lab"><div class="lab-preview-top mono"><span>SCHEMA BUG</span><span>INTERACTIVE ↗</span></div><div class="fault-diagram"><div class="fault-node">&#123; &#125;<span class="mono">TOOL SCHEMA</span></div><div class="fault-connector"><span></span><b>?</b><span></span></div><div class="fault-node fault-node-dashed">$ref<span class="mono">MISSING TARGET</span></div></div><div class="lab-preview-bottom"><div><h3>One missing block.<br />Three different answers.</h3><span>See why exit 1, 0, and 2 are different.</span></div><span class="circle-arrow"><Icon name="arrow-right" /></span></div></a></div></div></section>
+  <section class="bench-teaser" aria-labelledby="bench-title">
+    <div class="container">
+      <SectionLabel number="02" label="THE WORKBENCH" extra="INTERACTIVE / HARDWARE + CODE" />
+      <div class="bench-teaser-grid">
+        <div class="bench-teaser-copy">
+          <span class="equipment-tag mono"><Icon name="wrench" size={17} /> FOR THE SETTINGS-MENU PEOPLE</span>
+          <h2 id="bench-title">BUT CAN IT<br /><em>RUN BETTER?</em></h2>
+          <p>Power limits, cooling, diminishing returns. Move the sliders in a small power-budget model, or take a tool schema apart and see where it breaks.</p>
+          <a class="button button-gold" href="/lab/">OPEN THE LAB <Icon name="arrow-right" /></a>
+          <p class="bench-footnote mono">POWER MODEL = ILLUSTRATION. NO HARDWARE SETTINGS CHANGE.</p>
+        </div>
+        <a class="rig-preview" href="/lab/#power-bench" aria-label="Try the power-budget experiment">
+          <div class="panel-caption"><span class="mono">BENCH_01 / POWER BUDGET</span><Icon size={19} /></div>
+          <RigArt />
+          <div class="rig-preview-caption"><span class="mono">SLIDE. COMPARE. REPEAT.</span><strong>Find the point of diminishing returns.</strong></div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <section class="section container"><SectionLabel number="03" label="FIELD NOTES" extra="TWO SHORT NOTES" /><div class="section-heading notes-heading"><h2>Two things I<br /><em>kept forgetting.</em></h2><a class="text-link" href="/notes/">All notes <Icon name="arrow-right" size={18} /></a></div><NoteList notes={notes} /></section>
+  <section class="section container notes-home">
+    <SectionLabel number="03" label="QUEST LOG" extra={`${String(notes.length).padStart(2, '0')} TECHNICAL NOTES`} />
+    <div class="section-heading"><h2>NOTES FROM<br /><em>THE WORKBENCH.</em></h2><a class="text-link" href="/notes/">All notes <Icon name="arrow-right" /></a></div>
+    <NoteList notes={notes.slice(0, 2)} />
+  </section>
 
-  <section class="about-strip container"><div class="about-strip-symbol" aria-hidden="true">↳</div><div><span class="mono">04 / ABOUT</span><h2>I’m H. A.,<br /><em>based in Deggendorf.</em></h2></div><div class="about-strip-copy"><p>I used to build client apps full-time. Now I’m doing a master’s and spending most of my time on AI tooling and automation.</p><a class="text-link" href="/about/">More about me <Icon size={18} /></a></div></section>
+  <section class="character-summary container">
+    <div class="summary-emblem" aria-hidden="true">P1</div>
+    <div><span class="mono">04 / CHARACTER SHEET</span><h2>THE PERSON<br /><em>AT THE KEYBOARD.</em></h2></div>
+    <div><p>I’ve worked as a freelance developer and co-founded a small consultancy. Now I’m doing a Master’s and building projects in AI and automation.</p><a class="text-link" href="/about/">About me <Icon /></a></div>
+  </section>
 </Base>

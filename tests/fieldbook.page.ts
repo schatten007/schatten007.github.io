@@ -4,7 +4,7 @@ export class FieldbookPage {
   constructor(readonly page: Page) {}
 
   get searchButton() { return this.page.getByRole('button', { name: 'Search the site' }); }
-  get searchDialog() { return this.page.getByRole('dialog', { name: 'FIND YOUR WAY' }); }
+  get searchDialog() { return this.page.getByRole('dialog', { name: 'QUICK SELECT' }); }
   get searchInput() { return this.page.getByRole('searchbox', { name: 'Search projects, notes, and pages' }); }
   get workCards() { return this.page.getByRole('article'); }
   get labResult() { return this.page.locator('[data-lab-result]'); }

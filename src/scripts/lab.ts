@@ -40,7 +40,7 @@ buttons.forEach(button => button.addEventListener('click', () => {
   buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
   if (code) code.textContent = JSON.stringify(fixtures[current].input, null, 2);
   if (label) label.textContent = fixtures[current].label;
-  showResult('↳', 'New file. Run it again.', 'Press “Run the check” on this version and read what comes back.', 'READY TO INSPECT', 'Each result is only about the file on the left. Nothing here runs the full SchemaSentinel CLI.', 'ready');
+  showResult('↳', 'Ready to inspect.', 'Run the check on the selected example.', 'READY TO INSPECT', 'The result applies to this one reference, not the full SchemaSentinel rule set.', 'ready');
 }));
 
 run?.addEventListener('click', () => {
@@ -48,10 +48,10 @@ run?.addEventListener('click', () => {
   const ref = schema.properties.location.$ref;
   // A one-reference teaching demo, not the full linter.
   if (!ref.startsWith('#/')) {
-    showResult('?', 'No trustworthy verdict.', 'This points to shared.json, a different file. This demo only follows references inside the file, so it cannot say if that one is good or bad.', 'EXIT 2 / UNSUPPORTED REFERENCE', 'Next step: open the other file with a tool that supports external references, or copy the definition into this schema.', 'unknown');
+    showResult('?', 'No trustworthy verdict.', 'This reference points to shared.json. The demo only follows definitions inside the current schema.', 'EXIT 2 / UNSUPPORTED REFERENCE', 'Use a checker that supports external references, or supply the definition locally.', 'unknown');
   } else if (!('$defs' in schema)) {
-    showResult('!', 'Yes — broken, as advertised.', 'location points to #/$defs/Location, but there is no $defs block in this file. The checker stops here.', 'EXIT 1 / SS-REF-001', 'Fix: restore the $defs block or inline the referenced schema. Try fixture 02 next — the same file with the definition put back.', 'error');
+    showResult('!', 'Missing definition found.', 'location points to #/$defs/Location, but that definition is absent. This is the expected result for the broken example.', 'EXIT 1 / SS-REF-001', 'Fix: restore the $defs block or inline the referenced schema. Select “Restore the definition” and run the check again.', 'error');
   } else {
-    showResult('✓', 'This one passes the narrow check.', 'Same file, but Location is now defined as a non-empty string. The reference resolves, so there is nothing to report.', 'EXIT 0 / NO FINDINGS IN THIS EXAMPLE', 'Narrow means narrow: this only checks the one local reference. It says nothing about MCP compliance in general.', 'success');
+    showResult('✓', 'The reference resolves.', 'Location is defined as a non-empty string. This example has no dangling-reference finding.', 'EXIT 0 / NO FINDINGS IN THIS EXAMPLE', 'The demo checked one local reference. This does not establish general MCP compliance.', 'success');
   }
 });

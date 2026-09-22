@@ -1,7 +1,7 @@
 ---
 title: CV Tailor
-subtitle: Better applications. Same actual human.
-description: OpenCode skills that tailor a CV to a job ad without inventing experience. Six small skills, each doing one job.
+subtitle: A job application toolkit that starts with the facts you supply.
+description: Six OpenCode skills for CVs, company research, and application prep, with source facts carried through the workflow.
 category: Automation
 tags: [Python, OpenCode, AI workflows, Playwright]
 date: 2026-09-20
@@ -28,15 +28,15 @@ architecture:
 
 ## The problem
 
-A job ad asks for one thing. Your CV has another. The portal wants it all in a third format. Most of the work is copying facts between boxes, and that is exactly where a language model starts inventing details to fill the gaps.
+A job application involves several versions of the same information: a CV, a cover letter, and often a portal form. A language model can help adapt the wording, but it can also introduce details the candidate never supplied.
 
-I wanted the help with the writing without the invented details.
+CV Tailor keeps the supplied career facts alongside the role’s requirements throughout that process.
 
 ## What I built
 
 CV Tailor is a set of OpenCode skills. The main one tailors a CV to a single job ad. Five smaller ones handle the rest: keeping a master CV, researching a company, writing a cover letter, preparing for interviews, and filling in web forms. Each one only runs when you ask for it.
 
-The tailoring step compares the ad against the history you paste in. Anything without support stays marked as missing. I also put in the German application conventions I kept running into, like the tabular CV and the Anschreiben, alongside the international format.
+The tailoring step compares the ad against the history you paste in. Missing facts are flagged for confirmation. The reference material covers German and DACH application conventions alongside international formats.
 
 The Python helpers only touch local files and never call the network. Browser work goes through a separate MCP integration. The form filler stops at the review screen. Submitting is always your click, not its.
 
@@ -49,7 +49,7 @@ I split **writing words** from **doing things**.
 - Skills do not trigger each other behind your back.
 - The application flow ends at review, and a test checks that boundary.
 
-When something goes wrong, I know where to look. A bad document, a missing fact, and a browser hiccup look different and get fixed differently.
+This gives each part a clearer responsibility. Document generation, missing career facts, and a browser-state problem can be investigated separately.
 
 ## Evidence you can inspect
 
@@ -63,4 +63,4 @@ This helps you prepare an application. It does not get you an interview, and it 
 
 What I would test next: take a fixed set of ads and histories, generate documents, and score two things separately. How many claims lack support. And how much relevant history got left out. Those fail in different ways, so they need different scores.
 
-*Write-up based on the public repo on 20 September 2026. I claim no placement rates or time saved.*
+*Based on the public repository snapshot from 20 September 2026. The repository contains no application-success or time-saved evaluation used in this write-up.*

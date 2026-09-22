@@ -1,17 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#171310"/>
-  <g fill="none" stroke="#3b3327"><path d="M55 99h1090M55 547h1090"/></g>
-  <path d="M58 71V43h16v11h20v17H78V60H58Z" fill="none" stroke="#ff5a26" stroke-width="2.5"/>
-  <text x="111" y="70" fill="#f1ead9" font-size="30" font-family="Arial,sans-serif" font-weight="bold" letter-spacing="-1.7">schatten<tspan fill="#ff5a26">.</tspan></text>
-  <text x="1145" y="63" text-anchor="end" fill="#c4b99f" font-size="14" font-family="monospace" letter-spacing="1.5">WORKSHOP NOTES / AI + SYSTEMS</text>
-  <text x="55" y="155" fill="#c4b99f" font-size="14" font-family="monospace" letter-spacing="1.5">SOFTWARE ENGINEER · DEGGENDORF</text>
-  <text x="49" y="305" fill="#f1ead9" font-size="110" font-family="Arial,sans-serif" letter-spacing="-7">I build tools</text>
-  <text x="51" y="439" fill="#ff5a26" font-size="110" font-style="italic" font-family="Georgia,serif" letter-spacing="-5">that show their work.</text>
-  <g transform="translate(930 315) rotate(-30)" fill="none" stroke="#ff5a26" stroke-width=".9" opacity=".7">
-    <ellipse rx="160" ry="143"/><ellipse rx="154" ry="143"/><ellipse rx="145" ry="143"/><ellipse rx="132" ry="143"/><ellipse rx="116" ry="143"/><ellipse rx="97" ry="143"/><ellipse rx="75" ry="143"/><ellipse rx="51" ry="143"/><ellipse rx="26" ry="143"/><ellipse rx="5" ry="143"/>
-    <ellipse rx="160" ry="132"/><ellipse rx="160" ry="116"/><ellipse rx="160" ry="97"/><ellipse rx="160" ry="75"/><ellipse rx="160" ry="51"/><ellipse rx="160" ry="26"/>
-  </g>
-  <circle cx="61" cy="580" r="4" fill="#ff5a26"/>
-  <text x="77" y="584" fill="#c4b99f" font-size="14" font-family="monospace">H. A. / SOFTWARE ENGINEER</text>
-  <text x="1145" y="584" text-anchor="end" fill="#ff5a26" font-size="15" font-family="monospace">schatten007.github.io</text>
+  <rect width="1200" height="630" fill="#202c2f"/>
+  <rect width="1200" height="74" fill="#eeebdc"/>
+  <path d="M35 19h28l9 9v30H44l-9-9Z" fill="#b7442d"/>
+  <path d="M46 28h15v7H51v3h10v12H46v-7h9v-3h-9Z" fill="#f0e8cc"/>
+  <text x="89" y="49" fill="#20393e" font-family="Impact,Arial,sans-serif" font-size="32" letter-spacing="1">SCHATTEN_</text>
+  <text x="1160" y="43" text-anchor="end" fill="#475e54" font-family="monospace" font-size="14">SAVE POINT / SOFTWARE + SIDE QUESTS</text>
+  <text x="48" y="126" fill="#c5d2c1" font-family="monospace" font-size="16">P1 / H. A. / SOFTWARE ENGINEER</text>
+  <text x="42" y="283" fill="#f2ead5" font-family="Impact,Arial,sans-serif" font-size="120">ONE MORE</text>
+  <text x="46" y="419" fill="#7d3d2f" font-family="Impact,Arial,sans-serif" font-size="144">TWEAK.</text>
+  <text x="42" y="414" fill="#f09b6d" font-family="Impact,Arial,sans-serif" font-size="144">TWEAK.</text>
+  <text x="49" y="464" fill="#c5d2c1" font-family="Arial,sans-serif" font-size="20">AI tools. Hardware tinkering. A soft spot for RPGs.</text>
+  <path d="M710 100h441v449H710Z" fill="#111f25"/>
+  <path d="M701 92h441v449H701Z" fill="#e6e6d1" stroke="#14292d" stroke-width="3"/>
+  <circle cx="920" cy="290" r="159" fill="#c75435" stroke="#273f3e" stroke-width="3"/>
+  <image href="/art/mechanic.svg" x="691" y="87" width="441" height="441"/>
+  <rect x="701" y="501" width="441" height="40" fill="#2c4648"/>
+  <text x="723" y="527" fill="#ebd397" font-family="monospace" font-size="16">CLASS / THE TINKERER</text>
+  <path d="M0 565h1200v7H0Z" fill="#bf4b30"/>
+  <text x="48" y="608" fill="#d9dbc3" font-family="monospace" font-size="14">PROJECTS / LAB / NOTES / CHARACTER SHEET</text>
+  <text x="1151" y="608" text-anchor="end" fill="#edca78" font-family="monospace" font-size="16">schatten007.github.io</text>
 </svg>

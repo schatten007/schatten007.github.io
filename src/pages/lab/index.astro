@@ -1,17 +1,50 @@
 ---
 import Base from '../../layouts/Base.astro';
 import SectionLabel from '../../components/SectionLabel.astro';
+import PowerBench from '../../components/PowerBench.astro';
 import Icon from '../../components/Icon.astro';
 ---
-<Base title="The lab" description="One small schema bug in three versions. Pick a version, run the check, and read what comes back.">
-  <section class="page-intro container"><SectionLabel number="02" label="THE LAB" extra="SMALL TESTS, PLAIN RESULTS" /><h1>Pull one wire.<br /><em>See what stops working.</em></h1><div class="page-intro-bottom"><p>One small schema bug, three versions. Pick a version, run the check, and read what comes back. Nothing to install.</p><span class="mono">ONE BUG / THREE VERSIONS</span></div></section>
-  <section class="container lab-page-section" aria-labelledby="experiment-title"><div class="experiment-heading"><div><span class="mono lime">TAKEN FROM SCHEMASENTINEL</span><h2 id="experiment-title">The tool shows up. Can it run?</h2></div><a class="text-link" href="/work/schema-sentinel/">How I built the checker <Icon /></a></div><p class="experiment-description">The <code>get_weather</code> tool needs a <code>Location</code>. Its schema points to <code>#/$defs/Location</code>. In version 01, that definition is missing. That missing block is the whole bug.</p>
-    <div class="lab-fixtures js-only" role="group" aria-label="Choose a schema version"><button data-fixture="broken" aria-pressed="true"><span>01</span> Broken on purpose — break the reference</button><button data-fixture="repaired" aria-pressed="false"><span>02</span> Fixed — restore the definition</button><button data-fixture="unsupported" aria-pressed="false"><span>03</span> Out of scope — cross the boundary</button></div>
-    <p class="lab-hint js-only">Start with 01 and press “Run the check”. You should see <strong>EXIT 1 / SS-REF-001</strong>. That is the right answer for a broken file, not a bug in this page.</p>
-    <div class="schema-lab"><div class="lab-input-panel"><div class="lab-panel-label mono"><span>INPUT / TOOLS.JSON</span><span data-fixture-label>BROKEN ON PURPOSE</span></div><pre class="lab-code"><code data-fixture-code>{JSON.stringify({ name: 'get_weather', inputSchema: { type: 'object', properties: { location: { $ref: '#/$defs/Location' } }, required: ['location'] } }, null, 2)}</code></pre><div class="lab-input-footer"><span class="mono">THREE SMALL FILES · READ-ONLY</span><button class="button button-lime js-only" data-run-fixture>Run the check <Icon name="play" size={16} /></button></div></div><div class="lab-output-panel"><div class="lab-panel-label mono"><span>OUTPUT / WHAT THE CHECK SAYS</span><span>RUNS IN YOUR BROWSER</span></div><div class="lab-result" data-lab-result role="status" aria-live="polite"><span class="result-symbol" aria-hidden="true">↳</span><h3>This file is broken on purpose.</h3><p>Press “Run the check”. You should get SS-REF-001. If you do, the demo works.</p></div></div></div>
-    <noscript><p class="noscript-note">This demo needs JavaScript to switch versions. Version 01 has a reference to <code>#/$defs/Location</code> with no matching definition. Read the <a href="/work/schema-sentinel/">SchemaSentinel write-up</a> for all three outcomes and the CLI source.</p></noscript>
-    <div class="lab-scope"><span class="mono">WHAT THIS DEMO DOES NOT DO</span><p>This runs in your browser on <strong>three small files I wrote for this page</strong>. It is not the SchemaSentinel CLI and not a general validator. “No findings” only means this one file has nothing wrong that this one check can see. The full project checks three documented rules with explicit boundaries.</p></div>
-    <div class="lab-lessons"><div><span class="mono">01 / READ THE REFERENCE</span><h3>Listed is not the same as usable.</h3><p>A tool can show up in a list while its input points nowhere. I first saw this when an export dropped the $defs block and kept the $ref.</p></div><div><span class="mono">02 / KEEP “DON’T KNOW” SEPARATE</span><h3>“I don’t know” is not a pass.</h3><p>A reference to another file is outside what this check can see. That gets exit 2, not exit 0. Mixing those up lets bad schemas through.</p></div><div><span class="mono">03 / SAY WHAT TO DO NEXT</span><h3>An error should suggest a fix.</h3><p>SS-REF-001 points at the exact $ref and says: put the $defs block back, or inline the definition. A code alone would leave you guessing.</p></div></div>
+<Base title="The workbench" description="Try a hardware power-budget model, then inspect a broken tool schema. Two small experiments you can run in your browser.">
+  <section class="page-intro container">
+    <SectionLabel number="02" label="THE LAB" extra="TWO BROWSER EXPERIMENTS" />
+    <h1>WELCOME TO<br /><em>THE WORKBENCH.</em></h1>
+    <div class="page-intro-bottom"><p>A couple of things to play with: a simplified power-and-cooling model, and a tool-schema bug you can inspect and repair.</p><span class="mono">HARDWARE THINKING / SOFTWARE EXPERIMENTS</span></div>
+  </section>
+  <nav class="lab-jump-links container" aria-label="Lab experiments">
+    <a href="#power-bench"><span class="mono">01</span>Power budget <Icon name="chip" /></a>
+    <a href="#schema-bench"><span class="mono">02</span>Schema check <Icon name="crosshair" /></a>
+  </nav>
+  <div class="container"><PowerBench /></div>
+  <section class="container lab-page-section" id="schema-bench" aria-labelledby="experiment-title">
+    <div class="experiment-heading">
+      <div><span class="mono">BENCH / 02 — DEVELOPER TOOLS</span><h2 id="experiment-title">ONE MISSING<br /><em>DEFINITION.</em></h2></div>
+      <a class="text-link" href="/work/schema-sentinel/">Read about SchemaSentinel <Icon /></a>
+    </div>
+    <p class="experiment-description">The <code>get_weather</code> tool refers to <code>#/$defs/Location</code>. In the first example, that definition is missing. Compare it with the repaired file and a reference this demo can’t follow.</p>
+    <div class="lab-fixtures js-only" role="group" aria-label="Choose a schema version">
+      <button data-fixture="broken" aria-pressed="true"><span>01</span>Broken reference</button>
+      <button data-fixture="repaired" aria-pressed="false"><span>02</span>Restore the definition</button>
+      <button data-fixture="unsupported" aria-pressed="false"><span>03</span>External reference</button>
+    </div>
+    <p class="lab-hint js-only">The first file is broken on purpose. Running it should return <strong>EXIT 1 / SS-REF-001</strong>. Choose “Restore the definition” to see the passing example.</p>
+    <div class="schema-lab">
+      <div class="lab-input-panel">
+        <div class="lab-panel-label mono"><span>INPUT / TOOLS.JSON</span><span data-fixture-label>BROKEN ON PURPOSE</span></div>
+        <pre class="lab-code"><code data-fixture-code>{JSON.stringify({ name: 'get_weather', inputSchema: { type: 'object', properties: { location: { $ref: '#/$defs/Location' } }, required: ['location'] } }, null, 2)}</code></pre>
+        <div class="lab-input-footer"><span class="mono">READ-ONLY EXAMPLE</span><button class="button button-gold js-only" data-run-fixture>RUN THE CHECK <Icon name="play" size={18} /></button></div>
+      </div>
+      <div class="lab-output-panel">
+        <div class="lab-panel-label mono"><span>RESULT</span><span>LOCAL DEMO</span></div>
+        <div class="lab-result" data-lab-result role="status" aria-live="polite" aria-atomic="true"><span class="result-symbol" aria-hidden="true">?</span><h3>Ready to inspect.</h3><p>Run the check to find the missing definition. This example should produce a finding.</p></div>
+      </div>
+    </div>
+    <noscript><p class="noscript-note">The first file has a reference with no matching definition. JavaScript enables the three interactive examples. The <a href="/work/schema-sentinel/">project write-up</a> explains the full checker.</p></noscript>
+    <div class="lab-scope"><span class="mono">WHAT IS RUNNING HERE?</span><p>A browser-only explanation using three fixed examples. It checks one reference. The full SchemaSentinel CLI has three rules, input validation, and additional unsupported-feature checks.</p></div>
+    <div class="lab-lessons">
+      <div><span class="mono">01 / THE FAILURE</span><h3>A reference needs a target.</h3><p>If an export keeps a <code>$ref</code> but drops its <code>$defs</code>, the input definition is incomplete. That is the defect this example shows.</p></div>
+      <div><span class="mono">02 / THE LIMIT</span><h3>Can’t check is a separate result.</h3><p>An external file is outside this demo’s scope. Exit 2 keeps that situation separate from finding a bug or completing a check.</p></div>
+      <div><span class="mono">03 / THE REPAIR</span><h3>Put the definition back.</h3><p>The second example restores <code>Location</code>. The reference resolves, so this particular check has no finding.</p></div>
+    </div>
   </section>
 </Base>
 <script>

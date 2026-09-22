@@ -1,0 +1,54 @@
+---
+import RigArt from './RigArt.astro';
+import Icon from './Icon.astro';
+import { coolingProfiles, modelPower, powerCurve, chartPoint } from '../lib/power-model';
+const baseline = modelPower(45, 'balanced');
+const point = chartPoint(45, baseline.throughput);
+---
+<section class="power-bench" id="power-bench" aria-labelledby="power-bench-title">
+  <div class="experiment-heading">
+    <div><span class="mono">BENCH / 01 — HARDWARE</span><h2 id="power-bench-title">HOW FAR WOULD<br /><em>YOU PUSH IT?</em></h2></div>
+    <span class="model-badge mono">ILLUSTRATIVE MODEL<br />NOT A DEVICE BENCHMARK</span>
+  </div>
+  <p class="experiment-description">More power can help, until cooling gets in the way. This simplified model makes that trade-off visible. The sliders only change the diagram.</p>
+  <div class="power-console" data-power-console>
+    <div class="power-controls">
+      <div class="panel-caption mono"><span>POWER / COOLING</span><span class="status-dot"></span></div>
+      <RigArt compact />
+      <div class="power-control-body">
+        <div class="power-label"><label for="power-limit">Requested power</label><output for="power-limit" id="power-output">45 W</output></div>
+        <input class="js-only" id="power-limit" type="range" min="15" max="80" step="5" value="45" aria-describedby="power-model-note" />
+        <div class="range-labels mono js-only"><span>15 W / EASY</span><span>80 W / PUSH IT</span></div>
+        <fieldset class="cooling-controls js-only"><legend>Cooling budget</legend><div class="cooling-options">
+          {Object.entries(coolingProfiles).map(([key, profile]) => <button type="button" data-cooling={key} aria-pressed={key === 'balanced'}>{profile.label}<span class="mono">{profile.watts} W cap</span></button>)}
+        </div></fieldset>
+        <button type="button" class="reset-bench text-link js-only" data-reset-bench>Reset to 45 W / balanced <Icon name="arrow-right" size={18} /></button>
+      </div>
+    </div>
+    <div class="power-display">
+      <div class="panel-caption mono"><span>THE MODEL’S OUTPUT</span><span>45 W = INDEX 100</span></div>
+      <div class="bench-stats">
+        <div><span class="mono">THROUGHPUT INDEX</span><strong data-throughput>100<span>pt</span></strong></div>
+        <div><span class="mono">SUSTAINED POWER</span><strong data-sustained>45<span>W</span></strong></div>
+      </div>
+      <svg class="power-chart" viewBox="0 0 540 255" role="img" aria-labelledby="power-chart-title">
+        <title id="power-chart-title">Illustrative throughput rises with power, then levels off at the cooling budget.</title>
+        <g class="chart-grid"><path d="M45 218H495M45 149H495M45 81H495M45 30V218" /></g>
+        <g class="chart-labels"><text x="5" y="222">60</text><text x="5" y="153">90</text><text x="0" y="85">120</text><text x="45" y="246">15 W</text><text x="245" y="246">45 W</text><text x="461" y="246">80 W</text></g>
+        <path class="chart-baseline" d="M252 30V218" />
+        <path class="chart-curve" data-power-curve d={powerCurve('balanced')} />
+        <path class="chart-marker-line" data-power-marker-line d={`M${point.x} ${point.y}V218`} />
+        <circle class="chart-marker" data-power-marker cx={point.x} cy={point.y} r="7" />
+      </svg>
+      <p class="power-verdict" data-power-verdict role="status" aria-live="polite">45 W requested, 45 W sustained. Within the 55 W cooling budget.</p>
+    </div>
+  </div>
+  <noscript><p class="noscript-note">The static example shows 45 W with a 55 W cooling budget. Turn on JavaScript to move the controls.</p></noscript>
+  <details class="model-explanation" id="power-model-note">
+    <summary>What’s behind these numbers? <span aria-hidden="true">+</span></summary>
+    <div><p><code>Index = 100 × ∛(sustained watts / 45)</code>, rounded. Sustained watts are the smaller of requested power and cooling budget. That’s the entire model.</p><p>The cube-root curve illustrates diminishing returns; the flat part illustrates a cooling cap. Real processors also depend on voltage, workload, architecture, firmware, temperature, and time. These numbers don’t predict your laptop’s speed or safe settings.</p></div>
+  </details>
+</section>
+<script>
+  import '../scripts/power-bench';
+</script>

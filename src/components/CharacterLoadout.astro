@@ -1,0 +1,27 @@
+---
+import Icon from './Icon.astro';
+---
+<section class="character-panel" aria-label="Character loadout" data-loadout-panel="code">
+  <div class="panel-caption"><span class="mono">CHARACTER SELECT</span><span class="mono">UNIT / 007</span></div>
+  <div class="character-stage">
+    <span class="avatar-backtype" aria-hidden="true">007</span>
+    <span class="avatar-disc" aria-hidden="true"></span>
+    <span class="avatar-cross cross-one" aria-hidden="true">+</span>
+    <span class="avatar-cross cross-two" aria-hidden="true">+</span>
+    <img class="mechanic-avatar" src="/art/mechanic.svg" alt="Original anime-inspired mechanic avatar with headphones, a screwdriver, and an open laptop." width="560" height="560" fetchpriority="high" />
+    <div class="avatar-nameplate"><span class="mono">CLASS</span><strong>THE TINKERER</strong><span>Software engineer / hardware enthusiast</span></div>
+    <span class="avatar-art-note mono">ORIGINAL AVATAR ILLUSTRATION</span>
+  </div>
+  <div class="loadout-controls js-only" role="group" aria-label="Choose a loadout">
+    <button data-loadout="code" aria-pressed="true"><span aria-hidden="true">&lt;/&gt;</span>AI & code</button>
+    <button data-loadout="hardware" aria-pressed="false"><Icon name="chip" />Hardware</button>
+    <button data-loadout="off-duty" aria-pressed="false"><Icon name="gamepad" />Off-duty</button>
+  </div>
+  <div class="loadout-description" role="status" aria-live="polite" aria-atomic="true">
+    <span class="mono" data-loadout-label>EQUIPPED / PYTHON + TYPESCRIPT</span>
+    <p data-loadout-description>AI application tools, schema checks, and data pipelines. The projects below are the working examples.</p>
+  </div>
+</section>
+<script>
+  import '../scripts/loadout';
+</script>

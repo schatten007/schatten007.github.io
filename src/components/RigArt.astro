@@ -1,0 +1,35 @@
+---
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+---
+<svg class:list={['rig-art', { 'rig-art-compact': compact }]} viewBox="0 0 560 340" fill="none" aria-hidden="true">
+  <g stroke="#7e9b8f" stroke-width="1" opacity=".2"><path d="M35 280 270 145l245 133M64 297 300 162M100 316 336 183M140 334 373 203M34 241l234 134M69 221l241 137M107 198l244 141M143 178l247 142"/></g>
+  <g stroke="#15272d" stroke-width="3" stroke-linejoin="round">
+    <path d="m100 218 212-103 174 83-213 109Z" fill="#b4c7a6"/>
+    <path d="m100 218 173 89v15l-173-87Z" fill="#647e76"/>
+    <path d="m273 307 213-109v17L273 322Z" fill="#405e60"/>
+    <path d="m126 215 185-88 147 70-185 96Z" fill="#3e6465"/>
+    <path d="m203 202 86-41 56 28-86 44Z" fill="#d6be79"/>
+    <path d="m224 203 64-30 35 16-63 32Z" fill="#263b3f"/>
+    <path d="m245 207 16-8 12 5-17 9Z" fill="#dc603d"/>
+    <path d="m324 145 18-9 90 44-18 10Zm-27 14 18-9 91 43-17 10Z" fill="#c4d6aa"/>
+    <path d="m180 230 10-6 34 17-10 6Zm-15 10 10-6 35 18-11 5Z" fill="#d6be79"/>
+    <path d="m302 249 78-38 21 10-80 40Z" fill="#d08b4e"/>
+    <!-- Cooling tower, with an animated front fan. -->
+    <path d="m180 203 5-105 95-47 79 39-6 109-95 48Z" fill="#9eb7a8"/>
+    <path d="m185 98 74 39 100-47M259 137l-1 110" fill="none"/>
+    <path d="m194 105 56 29-1 94-61-29Z" fill="#243e44"/>
+    <path d="m270 141 75-38-3 85-76 39Z" fill="#577573"/>
+    {[0, 1, 2, 3, 4, 5, 6].map(i => <path d={`m${273 + i * 10} ${140 - i * 5} -3 77`} stroke="#b6c7ad" stroke-width="4" />)}
+    <ellipse cx="220" cy="169" rx="27" ry="38" fill="#122d36" stroke="#71998b" stroke-width="2"/>
+    <g class="rig-fan" fill="#accdab" stroke="#274b4f" stroke-width="2">
+      <path d="m218 161-6-23 12-4 9 11-8 18Zm9 9 15-10 3 16-13 15-10-15Zm-10 8-7 20-11-12 1-13 14-4Z"/>
+    </g>
+    <ellipse cx="220" cy="169" rx="7" ry="9" fill="#eac065" stroke-width="2"/>
+    <path d="m371 252 25-12 21 10-27 14Zm55-59 16-9 9 5-16 9Z" fill="#f0d384"/>
+    <circle cx="146" cy="219" r="4" fill="#d6be79"/>
+    <circle cx="455" cy="200" r="4" fill="#d6be79"/>
+    <circle cx="271" cy="293" r="4" fill="#d6be79"/>
+  </g>
+  <g stroke="#d9be76" stroke-width="1.5"><path d="M366 79h90m-67 18h67m-61 18h61M94 148H44m47 16H44"/><path d="m98 39 13 7-13 7-13-7Zm347 259 11 6-11 6-11-6Z" fill="#d9be76"/></g>
+</svg>

@@ -1,8 +1,8 @@
-# schatten. — Curiosity, engineered.
+# SAVE POINT / SCHATTEN
 
-An editorial engineering fieldbook at **[schatten007.github.io](https://schatten007.github.io)**.
+A game- and hardware-inspired portfolio at **[schatten007.github.io](https://schatten007.github.io)**.
 
-Applied AI, useful automation, and the systems behind them. Built with Astro, typed Markdown collections, custom CSS, and a small amount of browser JavaScript.
+AI projects, an interactive workbench, and technical notes. Original cel-shaded art, selectable character loadouts, and game-manual typography. Built with Astro, validated Markdown collections, CSS, and small browser scripts.
 
 ## Run locally
 
@@ -38,6 +38,9 @@ Add screenshots to `public/images/` and reference them from the Markdown body, f
 | Home-page copy | `src/pages/index.astro` |
 | Colors, typography, responsive styles | `src/styles/global.css` |
 | Project artwork | `src/components/ProjectArt.astro` |
+| Original mechanic avatar | `public/art/mechanic.svg` |
+| Character loadouts | `src/components/CharacterLoadout.astro`, `src/scripts/loadout.ts` |
+| Power-budget model and chart | `src/lib/power-model.ts`, `src/components/PowerBench.astro`, `src/scripts/power-bench.ts` |
 | Browser-local schema explainer | `src/scripts/lab.ts` |
 | Metadata & navigation | `src/layouts/Base.astro` |
 
@@ -65,7 +68,7 @@ npx playwright install chromium
 npm run verify
 ```
 
-Checks include Astro/TypeScript diagnostics, the static build, and Playwright desktop/mobile flows for navigation, filtering, keyboard search, schema fixtures, reduced motion, no-JavaScript reading, print CV, internal reading links, and automated accessibility checks. Playwright always serves the production build on port 4322, separately from the development server. Failure artifacts are in `test-results/`; the HTML report is in `playwright-report/`.
+Checks include Astro/TypeScript diagnostics, the static build, and Playwright desktop/tablet/mobile flows for navigation, filtering, keyboard search, character loadouts, power-budget controls, schema examples, motion settings, no-JavaScript reading, print CV, internal links, text sizes, and accessibility. The narrow layout is checked at 360px as well. Playwright serves the production build on port 4322, separately from the development server. Failure artifacts are in `test-results/`; the HTML report is in `playwright-report/`.
 
 ## Publish
 
@@ -83,10 +86,10 @@ Launch projects are based on these public snapshots:
 - [SchemaSentinel — 15 Sep 2026](https://github.com/schatten007/SchemaSentinel/tree/1c222db3ee948c3cfa7e046c0d6daac74e7f03cd)
 - [EU Tech Labour Observatory — 6 Sep 2026](https://github.com/schatten007/EU-Tech-Labor-Observatory/tree/8ca23914700c199c90e8b39ba2fc4e25475eff95)
 
-Repository evaluation figures are attributed in the case studies. The project exhibits are conceptual illustrations. The Observatory artwork is not a live data feed, and the schema lab is a teaching model rather than the full validator. Launch notes are explanatory write-ups of those project decisions.
+Repository evaluation figures are attributed in the case studies. The artwork is illustrative. The avatar is an original character rather than a portrait. The hardware experiment uses a documented cube-root model and a cooling cap; it does not read or change device settings or report measured performance. The schema experiment explains three fixed examples rather than running the full CLI. Technical notes explain the project decisions without inventing personal incidents.
 
 The supplied source CV remains local and is ignored by Git. The public profile uses initials and GitHub contact. There are no runtime API keys, analytics scripts, or third-party font requests.
 
 ## Design
 
-Warm charcoal, parchment, and electric chartreuse. Manrope for the structure; Instrument Serif for the curiosity. Original project exhibits, numbered sections, a controllable wireframe torus, and real content in static HTML. Design requirements live in `specs/portfolio.spec.md`.
+Bone, gunmetal, vermilion, amber, and muted mint. Barlow Condensed for game-menu headings; Manrope for reading. Mission-selection cards, an original mechanic avatar, isometric equipment art, and loadout controls reflect the owner's stated interests in anime, RPGs, Doom-style shooters, and hardware tuning. The revision brief is in `specs/save-point-redesign.md`; the original launch spec is retained in `specs/portfolio.spec.md`.

@@ -1,6 +1,6 @@
 ---
 title: SchemaSentinel
-subtitle: Catch the break before the agent does.
+subtitle: Check the input definition before an agent tries to use it.
 description: A small CLI that reads a saved tools/list file and flags two documented n8n-to-MCP schema bugs. It says where it broke and what to do about it.
 category: Developer tools
 tags: [TypeScript, MCP, JSON Schema, CLI]
@@ -19,7 +19,7 @@ architecture:
   - title: Read
     detail: Turn the three JSON shapes into one list
   - title: Resolve
-    detail: Follow local #/ references
+    detail: "Follow local #/ references"
   - title: Inspect
     detail: Check three documented rules
   - title: Report
@@ -28,9 +28,9 @@ architecture:
 
 ## The problem
 
-An agent can only call a tool if the schema survived the trip. I kept seeing two n8n-to-MCP cases: the `$defs` block goes missing while the `$ref` stays, or a typed schema collapses into a plain object with no constraints.
+Two documented n8n-to-MCP conversion failures are the starting point for this project: a `$defs` block goes missing while its `$ref` remains, or a typed schema collapses into an unconstrained object.
 
-The tool still shows up in the list. It just cannot run properly.
+The tool can still appear in the list even though its input definition has lost information.
 
 ## What I built
 
@@ -46,7 +46,7 @@ There are three outcomes, and I kept them separate on purpose:
 - **1 — findings:** the check ran and found one of the documented patterns.
 - **2 — no trustworthy verdict:** the file could not be checked as supported.
 
-The third one matters most. An external reference, a different dialect, or broken JSON is not a clean bill of health. A pipeline that treats “couldn’t check” as “passed” will ship a broken tool with a green badge.
+The third one stops an unsupported input from looking like a completed check. For example, a checker that only follows local references cannot establish whether an external definition exists.
 
 ## Evidence you can inspect
 

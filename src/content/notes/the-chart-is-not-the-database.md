@@ -1,40 +1,40 @@
 ---
-title: The chart is not the database.
-description: Why the dashboard in my labour project only shows numbers from a checked export.
+title: Let the dashboard display the answer
+description: Why the Observatory calculates its metrics before they reach the frontend.
 category: Data systems
 date: 2026-09-20
 readingTime: 3 min
 relatedProject: labour-observatory
 ---
 
-The frontend can compute anything. That is the problem.
+It’s easy to add a calculation to a chart component. A filter here, a percentage there. The awkward part comes when the UI and the data pipeline end up with different definitions of the same metric.
 
-I once had three versions of one metric: the backend counted one group, the chart filtered another, and the tooltip divided by a third. All three looked reasonable. None of them matched.
+The Observatory handles that by publishing a checked export. The React app displays the numbers in that file.
 
-## Give the UI one job
+## One place for the calculation
 
-In the labour project, the React app only renders a checked export. If a number is not in that export, it is not on screen.
-
-The pipeline owns sources, mappings, denominators, and checks. The frontend owns wording and layout.
+The pipeline owns the source scope, reference mappings, denominators, and checks. The frontend handles layout and explanation.
 
 ```text
 source → checked transforms → published file → screen
 ```
 
-One definition feeds both the dashboard and the plain HTML page. When they disagree, I know the export is stale, not that someone redefined a metric in a component.
+Both the dashboard and the plain HTML page use the checked data. If they disagree, there are fewer places to investigate: the export version, the publishing step, or the rendering code. The UI has no separate metric calculation to reconcile.
 
-## Missing is a real state
+## What happens to a missing field?
 
-The German source has no occupation field. So the German occupation panel says so. It would be easy to guess from job titles and fill the empty box. That guess would be a new model with its own error rate, hiding inside a product that otherwise reports what sources said.
+The German source used by the project has no structured occupation field. So the occupation panel says the field is unavailable.
 
-“Not available from this source” is the accurate chart.
+Inferring occupations from job titles would be possible, but it would add a classifier and its errors to a product that reports source observations. It would need its own evaluation and a clear label in the UI.
 
-## Keep the denominator next to the number
+For this version, the empty state explains what the source provides.
 
-“Top regions” sounds national even when the data is a capped sample across 400 regions. I keep the scope and the caveat next to the chart, not in a separate methods page nobody opens.
+## Keep the population visible
 
-Same with missing rows. Dropping them quietly changes the group you counted. Showing them keeps the transform honest.
+A chart titled “Top regions” leaves an important question unanswered: top regions out of which data?
 
-**What I do now:** the export has to carry enough context that the UI cannot accidentally tell a stronger story than the source.
+The German figures come from a capped draw over a fixed panel of 400 regions. They describe that collection, rather than national totals. Putting the scope beside the chart gives the reader that context before they interpret the ranking.
 
-Source: [The observatory’s app rules and methodology](https://github.com/schatten007/EU-Tech-Labor-Observatory/tree/8ca23914700c199c90e8b39ba2fc4e25475eff95).
+Unresolved values also stay visible. Dropping them would change the denominator and make the chart harder to compare with the source.
+
+Source: [The Observatory’s application rules and methodology](https://github.com/schatten007/EU-Tech-Labor-Observatory/tree/8ca23914700c199c90e8b39ba2fc4e25475eff95).

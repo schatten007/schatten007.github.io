@@ -5,4 +5,11 @@ import NoteList from '../../components/NoteList.astro';
 import { getNotes } from '../../lib/content';
 const notes = await getNotes();
 ---
-<Base title="Notes to my future self" description="Short notes from building the projects. Mostly about where I went wrong first."><section class="page-intro container"><SectionLabel number="03" label="NOTES" extra="TWO ENTRIES" /><h1>Notes to<br /><em>my future self.</em></h1><div class="page-intro-bottom"><p>Short notes from building the projects above. Mostly about where I went wrong first.</p><span class="mono">SHORT ON PURPOSE</span></div></section><section class="container notes-index" aria-label="Technical notes"><NoteList notes={notes} /><div class="index-colophon mono"><span>I ADD NOTES WHEN I KEEP FORGETTING SOMETHING.</span><span>{String(notes.length).padStart(2, '0')} ENTRIES</span></div></section></Base>
+<Base title="Quest log / Notes" description="Short technical notes about the design choices inside my projects.">
+  <section class="page-intro container">
+    <SectionLabel number="03" label="QUEST LOG" extra={`${String(notes.length).padStart(2, '0')} ENTRIES`} />
+    <h1>NOTES FROM<br /><em>THE WORKBENCH.</em></h1>
+    <div class="page-intro-bottom"><p>Some details deserve more space than a project card. These are short explanations of choices inside the code.</p><span class="mono">TECHNICAL NOTES / SOURCE LINKS INCLUDED</span></div>
+  </section>
+  <section class="container notes-index" aria-label="Technical notes"><NoteList notes={notes} /></section>
+</Base>

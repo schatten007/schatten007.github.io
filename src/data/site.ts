@@ -3,9 +3,9 @@ export const site = {
   name: 'H. A.',
   handle: 'schatten',
   githubHandle: 'schatten007',
-  title: 'schatten — I build AI tools that show their work.',
+  title: 'SAVE POINT — Schatten / Software & side quests',
   description:
-    'I’m H. A., a software engineer in Deggendorf. Recent work: CV Tailor, SchemaSentinel, and a labour-market data project. Each write-up says what it does, where it’s rough, and where the code is.',
+    'Software engineer and Master’s student in Deggendorf. AI tools, hardware tinkering, and a soft spot for RPGs. Browse the projects, try the lab, and read the notes.',
   url: 'https://schatten007.github.io',
   github: 'https://github.com/schatten007',
   location: 'Deggendorf, Germany',
@@ -17,7 +17,7 @@ export const site = {
 };
 
 export const navigation = [
-  { label: 'Work', href: '/work/' },
+  { label: 'Projects', href: '/work/' },
   { label: 'Lab', href: '/lab/' },
   { label: 'Notes', href: '/notes/' },
   { label: 'About', href: '/about/' },
